@@ -21,9 +21,10 @@ feign:
         read-timeout: 30000
 
 security:
-  secret: SECRET
+  secret: "SECRET"
   session-duration-minutes: 86400
-  success-redirect-url: http://localhost:3000/dashboard
+  success-redirect-url: "http://localhost:3000/dashboard"
+  allowed-origin: "http://localhost:3000"
 
 services:
   user:

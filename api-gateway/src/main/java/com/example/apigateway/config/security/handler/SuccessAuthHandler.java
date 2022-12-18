@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.example.apigateway.client.UserClient;
 import com.example.apigateway.config.security.jwt.JwtProvider;
 import com.example.apigateway.dto.SaveOrGetUserRequest;
-import com.example.apigateway.dto.SaveUserResponse;
+import com.example.apigateway.dto.UserResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -50,7 +50,7 @@ public class SuccessAuthHandler extends SimpleUrlAuthenticationSuccessHandler {
       .name(principal.getAttribute("name"))
       .provider("GITHUB")
       .build();
-    final SaveUserResponse result = userClient.saveOrGet(saveOrGetUserRequest);
+    final UserResponse result = userClient.saveOrGet(saveOrGetUserRequest);
     final String token = tokenProvider.generateToken(result.getId(), result.getLogin(), result.getAccountId());
     clearAuthenticationAttributes(request);
     final Cookie cookie = new Cookie(TOKEN_NAME, token);

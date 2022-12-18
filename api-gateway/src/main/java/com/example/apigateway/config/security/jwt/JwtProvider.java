@@ -32,13 +32,13 @@ public class JwtProvider {
     this.sessionDurationMinutes = sessionDurationMinutes;
   }
 
-  public String generateToken(final Long name, final String login, final String accountId) {
+  public String generateToken(final Long id, final String login, final String accountId) {
     final Instant instant = LocalDateTime.now()
       .plus(Duration.ofMinutes(sessionDurationMinutes))
       .toInstant(ZoneOffset.UTC);
     final Date date = Date.from(instant);
     return Jwts.builder()
-      .setSubject(name.toString())
+      .setSubject(id.toString())
       .claim("login", login)
       .claim("accountId", accountId)
       .setExpiration(date)

@@ -3,16 +3,18 @@
  */
 
 import create from 'zustand';
-import { SessionState } from './model/SessionState';
+import { User } from './model/SessionState';
 import SessionService from './service/SessionService';
 
-const initialState: SessionState = {
-  user: null,
-  loading: true
-};
+export interface SessionState {
+  user: User | null;
+  loading: boolean;
+  getSession: () => void;
+}
 
-export const userSessionStore = create<SessionState>(set => ({
-  ...initialState,
+export const useSessionStore = create<SessionState>(set => ({
+  user: null,
+  loading: true,
   getSession: async () => {
     try {
       const user = await SessionService.getSession();

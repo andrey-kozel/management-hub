@@ -16,4 +16,7 @@ public interface UserRepository extends Repository<User, Long> {
     @Param("accountId") final String accountId,
     @Param("provider") final String provider
   );
+
+  @Query("SELECT * FROM users where id = :id")
+  User get(Long userId);
 }

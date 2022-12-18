@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Dashboard from './pages/Dashboard/Dashboard';
-import { userSessionStore } from './store';
+import { useSessionStore } from './store';
 import LoadingScreen from './components/LoadingScreen';
 
 function App() {
-  const user = userSessionStore(state => state.user);
-  const loading = userSessionStore(state => state.loading);
+  const user = useSessionStore(state => state.user);
+  const loading = useSessionStore(state => state.loading);
+
+  const getSession = useSessionStore(state => state.getSession);
+
+  useEffect(() => {
+    getSession();
+  }, []);
 
   if (loading) {
     return <LoadingScreen />;

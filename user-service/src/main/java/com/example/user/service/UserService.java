@@ -16,4 +16,7 @@ public class UserService {
       .orElseGet(() -> userRepository.save(user));
   }
 
+  public User get(final Long userId) {
+    return userRepository.get(userId);
+  }
 }
