@@ -18,4 +18,6 @@ public class User {
   @Column("name")
   String name;
 
+  String provider;
+
 }

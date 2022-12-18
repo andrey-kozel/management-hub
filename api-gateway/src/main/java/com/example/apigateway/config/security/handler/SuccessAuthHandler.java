@@ -37,9 +37,9 @@ public class SuccessAuthHandler extends SimpleUrlAuthenticationSuccessHandler {
   ) throws IOException {
     final DefaultOAuth2User principal = (DefaultOAuth2User) authentication.getPrincipal();
     final SaveOrGetUserRequest saveOrGetUserRequest = SaveOrGetUserRequest.builder()
-      .id(principal.getName())
-      .username(principal.getAttribute("login"))
+      .accountId(principal.getName())
       .name(principal.getAttribute("name"))
+      .provider("GITHUB")
       .build();
     final SaveUserResponse result = userClient.saveOrGet(saveOrGetUserRequest);
     final String token = tokenProvider.generateToken(result.getId(), result.getLogin(), result.getAccountId());
