@@ -17,6 +17,7 @@
 		<spring-boot-starter-web.version>2.7.5</spring-boot-starter-web.version>
 		<lombok-mapstruct.version>0.2.0</lombok-mapstruct.version>
 		<lombok.version>1.18.24</lombok.version>
+		<postgresql.version>42.5.0</postgresql.version>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 	</properties>
 
@@ -31,6 +32,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
 			<version>2.7.5</version>
+		</dependency>
+
+		<!-- POSTGRES -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 		</dependency>
 
 		<!-- BOILERPLATE REDUCTION -->

@@ -12,7 +12,8 @@ public class UserService {
   private final UserRepository userRepository;
 
   public User saveOrGet(final User user) {
-    return userRepository.save(user);
+    return userRepository.getByUsernameAndProvider(user.getAccountId(), user.getProvider())
+      .orElseGet(() -> userRepository.save(user));
   }
 
 }
