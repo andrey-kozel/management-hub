@@ -20,8 +20,9 @@ feign:
         connect-timeout: 50000
         read-timeout: 30000
 
-jwt:
+security:
   secret: SECRET
+  success-redirect-url: http://localhost:3000/dashboard
 
 services:
   user:
