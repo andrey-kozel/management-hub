@@ -1,10 +1,12 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import LoginPage from './pages/LoginPage/LoginPage';
 
 function App() {
   return (
-    <div>
-      Management Hub
-    </div>
+    <Routes>
+      <Route path={'/login'} element={<LoginPage />} />
+    </Routes>
   );
 }
 
