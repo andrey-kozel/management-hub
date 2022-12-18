@@ -13,3 +13,17 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+feign:
+  client:
+    config:
+      user:
+        connect-timeout: 5000
+        read-timeout: 3000
+
+jwt:
+  secret: SECRET
+
+services:
+  user:
+    url: 'http://localhost:8081'
+
