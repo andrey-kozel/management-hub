@@ -22,6 +22,7 @@ feign:
 
 security:
   secret: SECRET
+  session-duration-minutes: 86400
   success-redirect-url: http://localhost:3000/dashboard
 
 services:

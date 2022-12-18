@@ -21,12 +21,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtProvider {
 
-  @Value("${security.secret}")
   private String jwtSecret;
+  private Long sessionDurationMinutes;
+
+  public JwtProvider(
+    @Value("${security.secret}") final String jwtSecret,
+    @Value("${security.session-duration-minutes}") final Long sessionDurationMinutes
+  ) {
+    this.jwtSecret = jwtSecret;
+    this.sessionDurationMinutes = sessionDurationMinutes;
+  }
 
   public String generateToken(final Long name, final String login, final String accountId) {
     final Instant instant = LocalDateTime.now()
-      .plus(Duration.ofMinutes(15))
+      .plus(Duration.ofMinutes(sessionDurationMinutes))
       .toInstant(ZoneOffset.UTC);
     final Date date = Date.from(instant);
     return Jwts.builder()
