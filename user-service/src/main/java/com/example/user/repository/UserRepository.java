@@ -18,5 +18,5 @@ public interface UserRepository extends Repository<User, Long> {
   );
 
   @Query("SELECT * FROM users where id = :id")
-  User get(Long userId);
+  User get(@Param("id") Long userId);
 }
