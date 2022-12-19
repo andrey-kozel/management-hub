@@ -4,6 +4,9 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import { useSessionStore } from './store';
 import LoadingScreen from './components/LoadingScreen';
+import ManagementHubLayout from './components/ManagementHubLayout';
+import Users from './pages/Users/Users';
+import Repositories from './pages/Repositories/Repositories';
 
 function App() {
   const user = useSessionStore(state => state.user);
@@ -21,9 +24,14 @@ function App() {
 
   if (user) {
     return (
-      <Routes>
-        <Route path={'/dashboard'} element={<Dashboard />} />
-      </Routes>
+      <ManagementHubLayout>
+        <Routes>
+          <Route path={'/dashboard'} element={<Dashboard />} />
+          <Route path={'/users'} element={<Users />} />
+          <Route path={'/repositories'} element={<Repositories />} />
+          <Route path={'*'} element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </ManagementHubLayout>
     );
   }
 
