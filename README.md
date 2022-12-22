@@ -22,7 +22,8 @@ Run `./scripts/run-migration.sh` to apply all the flyway migrations on the datab
 
 ## Run frontend
 
-`cd ui` - go to frontend directory
+`cd ui` - go to frontend directory,
+`npm install`,
 `npm start` - run frontend part
 
 ## Run backend
