@@ -19,4 +19,8 @@ public class UserService {
   public User get(final Long userId) {
     return userRepository.get(userId);
   }
+
+  public void changeOrganization(final Long userId, final int organizationId) {
+    userRepository.changeOrganization(userId, organizationId);
+  }
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -32,6 +33,11 @@ public class UserController {
   public UserResponse get(@PathVariable("userId") final Long userId) {
     final User user = userService.get(userId);
     return userConverter.toDto(user);
+  }
+
+  @PostMapping("{userId}/change/organization")
+  public void changeOrganization(@RequestParam("organizationId") final int organizationId, @PathVariable("userId") Long userId) {
+    userService.changeOrganization(userId, organizationId);
   }
 
 }

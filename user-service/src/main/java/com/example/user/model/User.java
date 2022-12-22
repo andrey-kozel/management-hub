@@ -22,4 +22,6 @@ public class User {
 
   String provider;
 
+  @Column("organization_id")
+  Long organizationId;
 }
