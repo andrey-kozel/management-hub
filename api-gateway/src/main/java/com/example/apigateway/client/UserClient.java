@@ -1,9 +1,7 @@
 package com.example.apigateway.client;
 
-import com.example.apigateway.dto.OrganizationResponse;
 import com.example.apigateway.dto.SaveOrGetUserRequest;
 import com.example.apigateway.dto.UserResponse;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +20,4 @@ public interface UserClient {
 
   @GetMapping("{userId}")
   UserResponse get(@PathVariable("userId") final Long userId);
-
-  @PostMapping("/organizations")
-  OrganizationResponse save(@RequestParam("organizationName") final String organizationName);
 }

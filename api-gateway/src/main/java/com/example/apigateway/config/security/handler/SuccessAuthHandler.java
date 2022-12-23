@@ -8,8 +8,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.apigateway.client.OrganizationClient;
 import com.example.apigateway.client.UserClient;
 import com.example.apigateway.config.security.jwt.JwtProvider;
+import com.example.apigateway.dto.OrganizationResponse;
 import com.example.apigateway.dto.SaveOrGetUserRequest;
 import com.example.apigateway.dto.UserResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,15 +29,18 @@ public class SuccessAuthHandler extends SimpleUrlAuthenticationSuccessHandler {
   private final String redirectUrl;
   private final JwtProvider tokenProvider;
   private final UserClient userClient;
+  private final OrganizationClient organizationClient;
 
   public SuccessAuthHandler(
     @Value("${security.success-redirect-url}") final String redirectUrl,
     final JwtProvider tokenProvider,
-    final UserClient userClient
+    final UserClient userClient,
+    final OrganizationClient organizationClient
   ) {
     this.redirectUrl = redirectUrl;
     this.tokenProvider = tokenProvider;
     this.userClient = userClient;
+    this.organizationClient = organizationClient;
   }
 
   @Override
@@ -50,8 +55,9 @@ public class SuccessAuthHandler extends SimpleUrlAuthenticationSuccessHandler {
       .name(principal.getAttribute("name"))
       .provider("GITHUB")
       .build();
-    userClient.save(principal.getName());
+    OrganizationResponse organizationResponse = organizationClient.save(principal.getName());
     final UserResponse result = userClient.saveOrGet(saveOrGetUserRequest);
+    userClient.changeOrganization(organizationResponse.getId(), result.getId());
     final String token = tokenProvider.generateToken(result.getId(), result.getLogin(), result.getAccountId());
     clearAuthenticationAttributes(request);
     final Cookie cookie = new Cookie(TOKEN_NAME, token);
