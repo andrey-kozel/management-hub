@@ -6,18 +6,13 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "user", url = "${services.user.url}/api/v1/users")
+@FeignClient(name = "user", url = "${services.user.url}/api/v1")
 public interface UserClient {
 
   @PostMapping
   UserResponse saveOrGet(final SaveOrGetUserRequest saveOrGetUserRequest);
 
-  @PostMapping("/organizations/{organizationId}/users")
-  UserResponse changeOrganization(@PathVariable("organizationId") final int organizationId,
-                                  @RequestParam("userId") final Long userId);
-
-  @GetMapping("{userId}")
+  @GetMapping("/users/{userId}")
   UserResponse get(@PathVariable("userId") final Long userId);
 }

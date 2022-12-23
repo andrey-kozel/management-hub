@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -29,16 +29,9 @@ public class UserController {
     return userConverter.toDto(savedUser);
   }
 
-  @GetMapping("{userId}")
+  @GetMapping("/users/{userId}")
   public UserResponse get(@PathVariable("userId") final Long userId) {
     final User user = userService.get(userId);
-    return userConverter.toDto(user);
-  }
-
-  @PostMapping("/organizations/{organizationId}/users")
-  public UserResponse changeOrganization(@PathVariable("organizationId") final int organizationId,
-                                         @RequestParam("userId") final Long userId) {
-    User user = userService.changeOrganization(organizationId, userId);
     return userConverter.toDto(user);
   }
 

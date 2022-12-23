@@ -12,5 +12,6 @@ public class UserResponse {
   Long id;
   String login;
   String accountId;
+  int organizationId;
 
 }
