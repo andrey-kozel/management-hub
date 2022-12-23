@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "organization", url = "${services.user.url}/api/v1/organizations")
 public interface OrganizationClient {
     @PostMapping
-    OrganizationResponse save(@RequestParam("organizationName") final String organizationName);
+    OrganizationResponse save(final String organizationName);
 }
