@@ -20,7 +20,7 @@ public class UserService {
     return userRepository.get(userId);
   }
 
-  public void changeOrganization(final Long userId, final int organizationId) {
-    userRepository.changeOrganization(userId, organizationId);
+  public User changeOrganization(final int organizationId, final Long userId) {
+    return userRepository.changeOrganization(organizationId, userId);
   }
 }

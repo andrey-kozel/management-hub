@@ -1,6 +1,7 @@
 package com.example.apigateway.controller;
 
 import com.example.apigateway.client.UserClient;
+import com.example.apigateway.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserClient userClient;
 
-    @PostMapping("{userId}/change/organization")
-    void changeOrganization(@PathVariable final Long userId, @RequestParam final int organizationId){
-        userClient.changeOrganization(userId, organizationId);
+    @PostMapping("/organizations/{organizationId}/users")
+    UserResponse changeOrganization(@PathVariable final int organizationId, @RequestParam final Long userId){
+        return userClient.changeOrganization(organizationId, userId);
     }
 }

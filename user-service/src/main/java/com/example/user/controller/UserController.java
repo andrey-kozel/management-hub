@@ -35,9 +35,11 @@ public class UserController {
     return userConverter.toDto(user);
   }
 
-  @PostMapping("{userId}/change/organization")
-  public void changeOrganization(@RequestParam("organizationId") final int organizationId, @PathVariable("userId") Long userId) {
-    userService.changeOrganization(userId, organizationId);
+  @PostMapping("/organizations/{organizationId}/users")
+  public UserResponse changeOrganization(@PathVariable("organizationId") final int organizationId,
+                                         @RequestParam("userId") final Long userId) {
+    User user = userService.changeOrganization(organizationId, userId);
+    return userConverter.toDto(user);
   }
 
 }

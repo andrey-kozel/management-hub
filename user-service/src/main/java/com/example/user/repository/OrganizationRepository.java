@@ -1,6 +1,6 @@
-package com.example.organization.repository;
+package com.example.user.repository;
 
-import com.example.organization.model.Organization;
+import com.example.user.model.Organization;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;

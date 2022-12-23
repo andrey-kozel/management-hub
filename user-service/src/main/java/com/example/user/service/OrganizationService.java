@@ -1,7 +1,7 @@
-package com.example.organization.service;
+package com.example.user.service;
 
-import com.example.organization.model.Organization;
-import com.example.organization.repository.OrganizationRepository;
+import com.example.user.model.Organization;
+import com.example.user.repository.OrganizationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

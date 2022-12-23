@@ -8,12 +8,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.apigateway.client.OrganizationClient;
 import com.example.apigateway.client.UserClient;
 import com.example.apigateway.config.security.jwt.JwtProvider;
 import com.example.apigateway.dto.SaveOrGetUserRequest;
 import com.example.apigateway.dto.UserResponse;
-import com.nimbusds.openid.connect.sdk.assurance.evidences.Organization;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -29,18 +27,15 @@ public class SuccessAuthHandler extends SimpleUrlAuthenticationSuccessHandler {
   private final String redirectUrl;
   private final JwtProvider tokenProvider;
   private final UserClient userClient;
-  private final OrganizationClient organizationClient;
 
   public SuccessAuthHandler(
     @Value("${security.success-redirect-url}") final String redirectUrl,
     final JwtProvider tokenProvider,
-    final UserClient userClient,
-    final OrganizationClient organizationClient
+    final UserClient userClient
   ) {
     this.redirectUrl = redirectUrl;
     this.tokenProvider = tokenProvider;
     this.userClient = userClient;
-    this.organizationClient = organizationClient;
   }
 
   @Override
@@ -55,7 +50,7 @@ public class SuccessAuthHandler extends SimpleUrlAuthenticationSuccessHandler {
       .name(principal.getAttribute("name"))
       .provider("GITHUB")
       .build();
-    Organization organization = organizationClient.save(saveOrGetUserRequest.getAccountId());
+    userClient.save(principal.getName());
     final UserResponse result = userClient.saveOrGet(saveOrGetUserRequest);
     final String token = tokenProvider.generateToken(result.getId(), result.getLogin(), result.getAccountId());
     clearAuthenticationAttributes(request);

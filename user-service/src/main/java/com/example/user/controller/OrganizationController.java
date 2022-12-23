@@ -1,11 +1,14 @@
-package com.example.organization.controller;
+package com.example.user.controller;
 
-import com.example.organization.converter.OrganizationConverter;
-import com.example.organization.dto.OrganizationResponse;
-import com.example.organization.model.Organization;
-import com.example.organization.service.OrganizationService;
+import com.example.user.converter.OrganizationConverter;
+import com.example.user.dto.OrganizationResponse;
+import com.example.user.model.Organization;
+import com.example.user.service.OrganizationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/organizations")

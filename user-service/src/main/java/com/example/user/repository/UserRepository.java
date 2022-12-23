@@ -23,7 +23,6 @@ public interface UserRepository extends Repository<User, Long> {
 
   @Query("UPDATE users " +
           "SET organization_id=:organizationId " +
-          "WHERE id=:userId")
-  @Modifying
-  void changeOrganization(@Param("userId") Long userId, @Param("organizationId") int organizationId);
+          "WHERE id=:userId RETURNING *")
+  User changeOrganization(@Param("organizationId") int organizationId, @Param("userId") Long userId);
 }
