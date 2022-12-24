@@ -20,9 +20,4 @@ public interface UserRepository extends Repository<User, Long> {
 
   @Query("SELECT * FROM users where id = :id")
   User get(@Param("id") Long userId);
-
-  @Query("UPDATE users " +
-          "SET organization_id=:organizationId " +
-          "WHERE id=:userId RETURNING *")
-  User changeOrganization(@Param("organizationId") int organizationId, @Param("userId") Long userId);
 }

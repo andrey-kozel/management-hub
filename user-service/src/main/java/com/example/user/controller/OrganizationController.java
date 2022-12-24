@@ -1,6 +1,7 @@
 package com.example.user.controller;
 
 import com.example.user.converter.OrganizationConverter;
+import com.example.user.dto.CreateOrganizationDto;
 import com.example.user.dto.OrganizationResponse;
 import com.example.user.facade.OrganizationFacade;
 import com.example.user.model.Organization;
@@ -15,8 +16,8 @@ public class OrganizationController {
     private final OrganizationFacade organizationFacade;
 
     @PostMapping
-    public OrganizationResponse save(@RequestBody final String organizationName) {
-        Organization organization = organizationFacade.save(organizationName);
+    public OrganizationResponse save(@RequestBody final CreateOrganizationDto createOrganizationDto) {
+        Organization organization = organizationFacade.save(createOrganizationDto.getName());
         return organizationConverter.toDto(organization);
     }
 }
