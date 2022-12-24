@@ -3,6 +3,7 @@ package com.example.user.controller;
 import com.example.user.converter.UserConverter;
 import com.example.user.dto.SaveOrGetUserRequest;
 import com.example.user.dto.UserResponse;
+import com.example.user.facade.UserFacade;
 import com.example.user.model.User;
 import com.example.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,23 +16,23 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
 
   private final UserConverter userConverter;
-  private final UserService userService;
+  private final UserFacade userFacade;
 
   @PostMapping
   public UserResponse saveOrGet(@RequestBody final SaveOrGetUserRequest request) {
     final User user = userConverter.fromDto(request);
-    final User savedUser = userService.saveOrGet(user);
-    return userConverter.toDto(savedUser);
+    User receivedUser = userFacade.saveOrGet(user);
+    return userConverter.toDto(receivedUser);
   }
 
-  @GetMapping("/users/{userId}")
+  @GetMapping("{userId}")
   public UserResponse get(@PathVariable("userId") final Long userId) {
-    final User user = userService.get(userId);
+    final User user = userFacade.get(userId);
     return userConverter.toDto(user);
   }
 
