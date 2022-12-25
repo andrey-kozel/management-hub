@@ -1,5 +1,6 @@
 package com.example.github.controller;
 
+import com.example.github.dto.ContributorsResponse;
 import com.example.github.dto.SaveOrGetContributorsDto;
 import com.example.github.facade.ContributorFacade;
 import com.example.github.model.Contributor;
@@ -15,7 +16,7 @@ public class ContributorController {
     private final ContributorFacade contributorFacade;
 
     @PostMapping("/contributors")
-    public List<Contributor> updateContributors(@RequestBody final SaveOrGetContributorsDto contributorsDto) {
-        return contributorFacade.updateContributors(contributorsDto);
+    public List<ContributorsResponse> addOrUpdateContributors(@RequestBody final SaveOrGetContributorsDto contributorsDto) {
+        return contributorFacade.addOrUpdateContributors(contributorsDto);
     }
 }
