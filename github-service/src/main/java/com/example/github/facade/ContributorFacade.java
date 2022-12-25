@@ -18,6 +18,7 @@ public class ContributorFacade {
 
     public List<ContributorsResponse> addOrUpdateContributors(final SaveOrGetContributorsDto contributorsDto) {
         List<ContributorsResponse> contributorsList = contributorService.getContributorsFromGitHubApi(contributorsDto);
+
         contributorsList.forEach(contributor -> {
             Contributor foundContributor = contributorService.getContributor(contributor.getLogin(), contributor.getId());
             Long contributorId = foundContributor.getId();
