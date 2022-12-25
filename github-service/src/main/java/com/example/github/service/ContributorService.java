@@ -6,15 +6,11 @@ import com.example.github.model.Contributor;
 import com.example.github.repository.ContributorRepository;
 import com.example.github.repository.RepositoryWithContributorsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriBuilder;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 
@@ -57,5 +53,9 @@ public class ContributorService {
 
     public void addOrUpdateContributor(final Long repositoryId, final Long contributorId, final Long contributions) {
         repositoryWithContributorsRepository.addOrUpdateRepositoryContributors(repositoryId, contributorId, contributions);
+    }
+
+    public List<ContributorsResponse> getContributorsByRepositoryId(Long repositoryId) {
+        return contributorRepository.getContributorByRepositoryId(repositoryId);
     }
 }

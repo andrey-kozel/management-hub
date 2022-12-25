@@ -36,4 +36,8 @@ public class ContributorFacade {
         }
         return new ArrayList<>();
     }
+
+    public List<ContributorsResponse> getContributorsByRepositoryId(Long repositoryId) {
+        return contributorService.getContributorsByRepositoryId(repositoryId);
+    }
 }

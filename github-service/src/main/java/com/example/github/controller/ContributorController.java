@@ -19,4 +19,9 @@ public class ContributorController {
     public List<ContributorsResponse> addOrUpdateContributors(@RequestBody final SaveOrGetContributorsDto contributorsDto) {
         return contributorFacade.addOrUpdateContributors(contributorsDto);
     }
+
+    @GetMapping("{repositoryId}/contributors")
+    List<ContributorsResponse> getContributorsByRepositoryId(@PathVariable("repositoryId") Long repositoryId) {
+        return contributorFacade.getContributorsByRepositoryId(repositoryId);
+    }
 }
