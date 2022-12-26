@@ -9,8 +9,8 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface UserConverter {
 
-  User fromDto(final SaveOrGetUserRequest request);
+    User fromDto(final SaveOrGetUserRequest request);
 
-  @Mapping(target="login", source="name")
-  UserResponse toDto(final User savedUser);
+    @Mapping(target = "login", source = "name")
+    UserResponse toDto(final User savedUser);
 }

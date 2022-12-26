@@ -69,7 +69,7 @@
                         <includeTests>false</includeTests>
                         <failOnViolation>true</failOnViolation>
                         <rulesets>
-                            <ruleset>codequality/pmd-ruleset.xml</ruleset>
+                            <ruleset>../codequality/pmd-ruleset.xml</ruleset>
                         </rulesets>
                     </configuration>
                     <executions>
@@ -90,7 +90,7 @@
                         <effort>Max</effort>
                         <threshold>Low</threshold>
                         <failOnError>true</failOnError>
-                        <includeFilterFiles>codequality/spotbug.xml</includeFilterFiles>
+                        <includeFilterFiles>../codequality/spotbug.xml</includeFilterFiles>
                     </configuration>
                     <dependencies>
                         <dependency>
