@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface GithubRepository extends Repository<Repo, Long> {
 
-    @Query("select * from github_repository where organization_id = :token" )
+    @Query("select * from github_repository where organizationid = :token" )
     List<Repo> findAllRepositoryByToken(@Param("token") String token);
 }
