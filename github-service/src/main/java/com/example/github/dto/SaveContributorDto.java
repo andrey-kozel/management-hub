@@ -7,8 +7,9 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @Value
-public class SaveOrGetContributorsDto {
+public class SaveContributorDto {
+    String login;
+    String accountId;
+    Long contributions;
     Long repositoryId;
-    String repositoryName;
-    String ownerName;
 }

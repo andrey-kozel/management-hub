@@ -1,22 +1,21 @@
 package com.example.github.controller;
 
 import com.example.github.dto.ContributorsResponse;
-import com.example.github.dto.SaveOrGetContributorsDto;
+import com.example.github.dto.SaveContributorDto;
 import com.example.github.facade.ContributorFacade;
-import com.example.github.model.Contributor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/repository")
+@RequestMapping("/api/v1/repositories")
 @RequiredArgsConstructor
 public class ContributorController {
     private final ContributorFacade contributorFacade;
 
     @PostMapping("/contributors")
-    public List<ContributorsResponse> addOrUpdateContributors(@RequestBody final SaveOrGetContributorsDto contributorsDto) {
+    public ContributorsResponse addOrUpdateContributors(@RequestBody final SaveContributorDto contributorsDto) {
         return contributorFacade.addOrUpdateContributors(contributorsDto);
     }
 

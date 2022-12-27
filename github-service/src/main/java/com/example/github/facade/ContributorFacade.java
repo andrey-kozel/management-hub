@@ -1,41 +1,40 @@
 package com.example.github.facade;
 
 import com.example.github.dto.ContributorsResponse;
-import com.example.github.dto.SaveOrGetContributorsDto;
+import com.example.github.dto.SaveContributorDto;
 import com.example.github.model.Contributor;
 import com.example.github.service.ContributorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
 public class ContributorFacade {
     private final ContributorService contributorService;
 
-    public List<ContributorsResponse> addOrUpdateContributors(final SaveOrGetContributorsDto contributorsDto) {
-        List<ContributorsResponse> contributorsList = contributorService.getContributorsFromGitHubApi(contributorsDto);
+    public ContributorsResponse addOrUpdateContributors(final SaveContributorDto contributorsDto) {
+        Contributor foundContributor = contributorService.getContributor(contributorsDto.getLogin(), contributorsDto.getAccountId());
 
-        contributorsList.forEach(contributor -> {
-            Contributor foundContributor = contributorService.getContributor(contributor.getLogin(), contributor.getId());
-            Long contributorId = foundContributor.getId();
-
-            if (foundContributor.getAccountId() == null) {
-                contributorId = contributorService.addContributor(contributor.getLogin(), contributor.getId());
-            }
-            contributorService.addOrUpdateContributor(
-                    contributorsDto.getRepositoryId(),
-                    contributorId,
-                    contributor.getContributions()
-            );
-        });
-        if(contributorsList.size() != 0) {
-            return contributorsList;
+        Long contributorId = 0L;
+        if (foundContributor.getAccountId() == null) {
+            contributorId = contributorService.addContributor(contributorsDto.getLogin(), contributorsDto.getAccountId());
+        } else {
+            contributorId = foundContributor.getId();
         }
-        return new ArrayList<>();
+
+        contributorService.addOrUpdateContributor(
+                contributorsDto.getRepositoryId(),
+                contributorId,
+                contributorsDto.getContributions()
+        );
+        return ContributorsResponse
+                .builder()
+                .id(contributorId)
+                .contributions(contributorsDto.getContributions())
+                .login(contributorsDto.getLogin())
+                .build();
     }
 
     public List<ContributorsResponse> getContributorsByRepositoryId(Long repositoryId) {

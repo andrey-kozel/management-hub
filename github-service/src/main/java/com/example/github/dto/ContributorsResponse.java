@@ -9,6 +9,6 @@ import lombok.extern.jackson.Jacksonized;
 @Value
 public class ContributorsResponse {
     String login;
-    String id;
+    Long id;
     Long contributions;
 }
