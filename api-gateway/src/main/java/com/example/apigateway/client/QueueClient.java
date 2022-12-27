@@ -1,5 +1,6 @@
 package com.example.apigateway.client;
 
+import com.example.apigateway.dto.QueueMessageDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -7,5 +8,5 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface QueueClient {
 
     @PostMapping("/syncRequest")
-    public void sendMessage();
+    void sendMessage(QueueMessageDto queueMessageDto);
 }

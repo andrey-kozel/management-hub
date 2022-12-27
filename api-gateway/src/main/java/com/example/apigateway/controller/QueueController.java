@@ -1,5 +1,6 @@
 package com.example.apigateway.controller;
 
+import com.example.apigateway.dto.QueueMessageDto;
 import com.example.apigateway.service.QueueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ public class QueueController {
     QueueService queueService;
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PostMapping(value = "/syncRequest")
-    public void sendSyncRequest() {
-        queueService.sendMessage();
+    public void sendSyncRequest(QueueMessageDto queueMessageDto) {
+        queueService.sendMessage(queueMessageDto);
     }
 }

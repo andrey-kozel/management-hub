@@ -3,7 +3,7 @@ package org.example.dto;
 import lombok.Data;
 
 @Data
-public class QueueMessage {
+public class QueueMessageDto {
     Long organisationId;
     String accessToken;
 }
