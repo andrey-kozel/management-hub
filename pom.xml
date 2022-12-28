@@ -12,6 +12,7 @@
 	<modules>
 		<module>api-gateway</module>
 		<module>user-service</module>
+		<module>github-service</module>
 	</modules>
 
 	<properties>
