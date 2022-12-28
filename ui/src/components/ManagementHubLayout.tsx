@@ -16,6 +16,7 @@ import {
 import { DashboardCustomize, Storage, VerifiedUser } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useSessionStore } from '../store';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 interface Props {
   children: ReactNode;
@@ -37,6 +38,11 @@ const navigationItems = [
     title: 'Repositories',
     path: 'repositories',
     icon: <Storage />
+  },
+  {
+    title: 'Organization settings',
+    path: 'organizationSettings',
+    icon: <SettingsIcon />
   }
 ];
 
