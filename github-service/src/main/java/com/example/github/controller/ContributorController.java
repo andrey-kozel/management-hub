@@ -15,7 +15,7 @@ public class ContributorController {
     private final ContributorFacade contributorFacade;
 
     @PostMapping("/contributors")
-    public ContributorsResponse addOrUpdateContributors(@RequestBody final SaveContributorDto contributorsDto) {
+    public List<ContributorsResponse> addOrUpdateContributors(@RequestBody final List<SaveContributorDto> contributorsDto) {
         return contributorFacade.addOrUpdateContributors(contributorsDto);
     }
 

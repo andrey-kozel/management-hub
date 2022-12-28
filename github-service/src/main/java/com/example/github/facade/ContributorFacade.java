@@ -7,6 +7,7 @@ import com.example.github.service.ContributorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -14,27 +15,36 @@ import java.util.List;
 public class ContributorFacade {
     private final ContributorService contributorService;
 
-    public ContributorsResponse addOrUpdateContributors(final SaveContributorDto contributorsDto) {
-        Contributor foundContributor = contributorService.getContributor(contributorsDto.getLogin(), contributorsDto.getAccountId());
-
+    public List<ContributorsResponse> addOrUpdateContributors(final List<SaveContributorDto> contributorsDto) {
+        List<ContributorsResponse> contributorsResponseList = new ArrayList<>();
         Long contributorId = 0L;
-        if (foundContributor.getAccountId() == null) {
-            contributorId = contributorService.addContributor(contributorsDto.getLogin(), contributorsDto.getAccountId());
-        } else {
-            contributorId = foundContributor.getId();
+
+        for (SaveContributorDto saveContributorDto : contributorsDto) {
+            Contributor foundContributor = contributorService.getContributor(saveContributorDto.getLogin(), saveContributorDto.getAccountId());
+
+            contributorId = 0L;
+            if (foundContributor.getAccountId() == null) {
+                contributorId = contributorService.addContributor(saveContributorDto.getLogin(), saveContributorDto.getAccountId());
+            } else {
+                contributorId = foundContributor.getId();
+            }
+
+            contributorService.addOrUpdateContributor(
+                    saveContributorDto.getRepositoryId(),
+                    contributorId,
+                    saveContributorDto.getContributions()
+            );
+            contributorsResponseList.add(
+                    ContributorsResponse
+                            .builder()
+                            .id(contributorId)
+                            .contributions(saveContributorDto.getContributions())
+                            .login(saveContributorDto.getLogin())
+                            .build()
+            );
         }
 
-        contributorService.addOrUpdateContributor(
-                contributorsDto.getRepositoryId(),
-                contributorId,
-                contributorsDto.getContributions()
-        );
-        return ContributorsResponse
-                .builder()
-                .id(contributorId)
-                .contributions(contributorsDto.getContributions())
-                .login(contributorsDto.getLogin())
-                .build();
+        return contributorsResponseList;
     }
 
     public List<ContributorsResponse> getContributorsByRepositoryId(Long repositoryId) {
