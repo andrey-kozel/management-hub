@@ -20,16 +20,19 @@ public class ContributorService {
         return contributorRepository.addContributor(login, accountId);
     }
 
-    public Contributor getContributor(final String login, final String accountId) {
-        Optional<Contributor> contributor = contributorRepository.getContributor(login, accountId);
-        return contributor.orElseGet(() -> Contributor.builder().build());
+    public Optional<Contributor> getContributor(final String login, final String accountId) {
+        return contributorRepository.getContributor(login, accountId);
     }
 
-    public void addOrUpdateContributor(final Long repositoryId, final Long contributorId, final Long contributions) {
-        repositoryWithContributorsRepository.addOrUpdateRepositoryContributors(repositoryId, contributorId, contributions);
-    }
-
-    public List<ContributorsResponse> getContributorsByRepositoryId(Long repositoryId) {
+    public List<ContributorsResponse> getContributorsByRepositoryId(final Long repositoryId) {
         return contributorRepository.getContributorByRepositoryId(repositoryId);
+    }
+
+    public void updateRepositoryContributors(final Long repositoryId, final Long contributorId, final Long contributions) {
+        repositoryWithContributorsRepository.updateRepositoryContributors(repositoryId, contributorId, contributions);
+    }
+
+    public void addRepositoryContributors(final Long repositoryId, final Long contributorId, final Long contributions) {
+        repositoryWithContributorsRepository.addRepositoryContributors(repositoryId, contributorId, contributions);
     }
 }

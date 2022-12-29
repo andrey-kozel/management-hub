@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -17,33 +18,43 @@ public class ContributorFacade {
 
     public List<ContributorsResponse> addOrUpdateContributors(final List<SaveContributorDto> contributorsDto) {
         List<ContributorsResponse> contributorsResponseList = new ArrayList<>();
-        Long contributorId = 0L;
 
-        for (SaveContributorDto saveContributorDto : contributorsDto) {
-            Contributor foundContributor = contributorService.getContributor(saveContributorDto.getLogin(), saveContributorDto.getAccountId());
+        Long findContributorId = 0L;
+        for(SaveContributorDto contributorDto : contributorsDto) {
+            findContributorId =
+                    contributorService.getContributor(contributorDto.getLogin(), contributorDto.getAccountId())
+                            .map((findContributor) -> {
+                                contributorService.updateRepositoryContributors(
+                                        contributorDto.getRepositoryId(),
+                                        findContributor.getId(),
+                                        contributorDto.getContributions()
+                                );
 
-            contributorId = 0L;
-            if (foundContributor.getAccountId() == null) {
-                contributorId = contributorService.addContributor(saveContributorDto.getLogin(), saveContributorDto.getAccountId());
-            } else {
-                contributorId = foundContributor.getId();
-            }
+                                return findContributor.getId();
+                            })
+                            .orElseGet(() -> {
+                                Long contributorId = contributorService.addContributor(
+                                        contributorDto.getLogin(),
+                                        contributorDto.getAccountId()
+                                );
+                                contributorService.addRepositoryContributors(
+                                        contributorDto.getRepositoryId(),
+                                        contributorId,
+                                        contributorDto.getContributions()
+                                );
 
-            contributorService.addOrUpdateContributor(
-                    saveContributorDto.getRepositoryId(),
-                    contributorId,
-                    saveContributorDto.getContributions()
-            );
+                                return contributorId;
+                            });
+
             contributorsResponseList.add(
                     ContributorsResponse
                             .builder()
-                            .id(contributorId)
-                            .contributions(saveContributorDto.getContributions())
-                            .login(saveContributorDto.getLogin())
+                            .id(findContributorId)
+                            .login(contributorDto.getLogin())
+                            .contributions(contributorDto.getContributions())
                             .build()
             );
         }
-
         return contributorsResponseList;
     }
 
