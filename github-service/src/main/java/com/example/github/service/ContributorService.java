@@ -28,11 +28,7 @@ public class ContributorService {
         return contributorRepository.getContributorByRepositoryId(repositoryId);
     }
 
-    public void updateRepositoryContributors(final Long repositoryId, final Long contributorId, final Long contributions) {
-        repositoryWithContributorsRepository.updateRepositoryContributors(repositoryId, contributorId, contributions);
-    }
-
-    public void addRepositoryContributors(final Long repositoryId, final Long contributorId, final Long contributions) {
+    public void addOrUpdateRepositoryContributors(final Long repositoryId, final Long contributorId, final Long contributions) {
         repositoryWithContributorsRepository.addRepositoryContributors(repositoryId, contributorId, contributions);
     }
 }

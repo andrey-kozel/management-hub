@@ -16,15 +16,11 @@ import java.util.Optional;
 public class ContributorFacade {
     private final ContributorService contributorService;
 
-    public List<ContributorsResponse> addOrUpdateContributors(final List<SaveContributorDto> contributorsDto) {
-        List<ContributorsResponse> contributorsResponseList = new ArrayList<>();
-
-        Long findContributorId = 0L;
+    public void addOrUpdateContributors(final List<SaveContributorDto> contributorsDto) {
         for(SaveContributorDto contributorDto : contributorsDto) {
-            findContributorId =
                     contributorService.getContributor(contributorDto.getLogin(), contributorDto.getAccountId())
                             .map((findContributor) -> {
-                                contributorService.updateRepositoryContributors(
+                                contributorService.addOrUpdateRepositoryContributors(
                                         contributorDto.getRepositoryId(),
                                         findContributor.getId(),
                                         contributorDto.getContributions()
@@ -37,7 +33,7 @@ public class ContributorFacade {
                                         contributorDto.getLogin(),
                                         contributorDto.getAccountId()
                                 );
-                                contributorService.addRepositoryContributors(
+                                contributorService.addOrUpdateRepositoryContributors(
                                         contributorDto.getRepositoryId(),
                                         contributorId,
                                         contributorDto.getContributions()
@@ -45,17 +41,7 @@ public class ContributorFacade {
 
                                 return contributorId;
                             });
-
-            contributorsResponseList.add(
-                    ContributorsResponse
-                            .builder()
-                            .id(findContributorId)
-                            .login(contributorDto.getLogin())
-                            .contributions(contributorDto.getContributions())
-                            .build()
-            );
         }
-        return contributorsResponseList;
     }
 
     public List<ContributorsResponse> getContributorsByRepositoryId(Long repositoryId) {

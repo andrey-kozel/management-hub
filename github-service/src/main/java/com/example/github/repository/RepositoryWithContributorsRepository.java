@@ -7,17 +7,10 @@ import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
 public interface RepositoryWithContributorsRepository extends Repository<Contributor, Long> {
-    @Query("INSERT INTO github_repository_with_contributors " +
-           "SELECT :repositoryId, :contributorId, :contributions " +
-           "WHERE NOT EXISTS (SELECT FROM github_repository_with_contributors WHERE repository_id=:repositoryId and contributor_id=:contributorId)")
+    @Query("INSERT INTO github_repository_with_contributors VALUES(:repositoryId, :contributorId, :contributions) " +
+            "ON CONFLICT(repository_id, contributor_id) DO UPDATE SET contributions=:contributions")
     @Modifying
     void addRepositoryContributors(@Param("repositoryId") Long repositoryId,
                                    @Param("contributorId") Long contributorId,
                                    @Param("contributions") Long contributions);
-
-    @Query("UPDATE github_repository_with_contributors SET contributions=:contributions WHERE repository_id=:repositoryId and contributor_id=:contributorId")
-    @Modifying
-    void updateRepositoryContributors(@Param("repositoryId") Long repositoryId,
-                                      @Param("contributorId") Long contributorId,
-                                      @Param("contributions") Long contributions);
 }
