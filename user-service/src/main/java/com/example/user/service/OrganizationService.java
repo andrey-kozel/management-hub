@@ -11,6 +11,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrganizationService {
     private final OrganizationRepository organizationRepository;
+    
     public Organization saveOrganization(String organizationName) {
         Optional<Organization> organization = organizationRepository.getByName(organizationName);
 
