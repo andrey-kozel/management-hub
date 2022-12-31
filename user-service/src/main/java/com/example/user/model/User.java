@@ -19,9 +19,8 @@ public class User {
 
     @Column("name")
     String name;
-    
     String provider;
-
+    
     @Column("organization_id")
     int organizationId;
 }
