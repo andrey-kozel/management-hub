@@ -28,39 +28,39 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-  private static final String TOKEN_NAME = "JWT";
-  private final JwtProvider jwtProvider;
+    private static final String TOKEN_NAME = "JWT";
+    private final JwtProvider jwtProvider;
 
-  @Override
-  public void doFilterInternal(
-    final HttpServletRequest request,
-    final HttpServletResponse response,
-    final FilterChain filterChain
-  ) throws IOException, ServletException {
+    @Override
+    public void doFilterInternal(
+            final HttpServletRequest request,
+            final HttpServletResponse response,
+            final FilterChain filterChain
+    ) throws IOException, ServletException {
 
-    final String token = getTokenFromRequest(request);
+        final String token = getTokenFromRequest(request);
 
-    if (jwtProvider.validateToken(token)) {
-      final Claims claims = jwtProvider.getTokenClaims(token);
+        if (jwtProvider.validateToken(token)) {
+            final Claims claims = jwtProvider.getTokenClaims(token);
 
-      final var oAuth2User = new DefaultOAuth2User(Collections.emptyList(), claims, "sub");
-      final OAuth2AuthenticationToken auth = new OAuth2AuthenticationToken(
-        oAuth2User, Collections.emptyList(), "google");
-      SecurityContextHolder.getContext().setAuthentication(auth);
+            final var oAuth2User = new DefaultOAuth2User(Collections.emptyList(), claims, "sub");
+            final OAuth2AuthenticationToken auth = new OAuth2AuthenticationToken(
+                    oAuth2User, Collections.emptyList(), "google");
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+        filterChain.doFilter(request, response);
     }
-    filterChain.doFilter(request, response);
-  }
 
-  private String getTokenFromRequest(final HttpServletRequest request) {
-    return Optional.of(request)
-      .map(HttpServletRequest::getCookies)
-      .map(Arrays::asList)
-      .filter(CollectionUtils::isNotEmpty)
-      .stream()
-      .flatMap(List::stream)
-      .filter(cookie -> TOKEN_NAME.equals(cookie.getName()))
-      .map(Cookie::getValue)
-      .findFirst()
-      .orElse("");
-  }
+    private String getTokenFromRequest(final HttpServletRequest request) {
+        return Optional.of(request)
+                .map(HttpServletRequest::getCookies)
+                .map(Arrays::asList)
+                .filter(CollectionUtils::isNotEmpty)
+                .stream()
+                .flatMap(List::stream)
+                .filter(cookie -> TOKEN_NAME.equals(cookie.getName()))
+                .map(Cookie::getValue)
+                .findFirst()
+                .orElse("");
+    }
 }

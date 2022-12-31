@@ -18,20 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
 
-  private final UserConverter userConverter;
-  private final UserService userService;
+    private final UserConverter userConverter;
+    private final UserService userService;
 
-  @PostMapping
-  public UserResponse saveOrGet(@RequestBody final SaveOrGetUserRequest request) {
-    final User user = userConverter.fromDto(request);
-    final User savedUser = userService.saveOrGet(user);
-    return userConverter.toDto(savedUser);
-  }
+    @PostMapping
+    public UserResponse saveOrGet(@RequestBody final SaveOrGetUserRequest request) {
+        final User user = userConverter.fromDto(request);
+        final User savedUser = userService.saveOrGet(user);
+        return userConverter.toDto(savedUser);
+    }
 
-  @GetMapping("{userId}")
-  public UserResponse get(@PathVariable("userId") final Long userId) {
-    final User user = userService.get(userId);
-    return userConverter.toDto(user);
-  }
-
+    @GetMapping("{userId}")
+    public UserResponse get(@PathVariable("userId") final Long userId) {
+        final User user = userService.get(userId);
+        return userConverter.toDto(user);
+    }
 }
