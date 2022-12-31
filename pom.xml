@@ -8,11 +8,11 @@
     <artifactId>management-hub</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-
-    <modules>
-        <module>api-gateway</module>
-        <module>user-service</module>
-    </modules>
+	<modules>
+		<module>api-gateway</module>
+		<module>user-service</module>
+		<module>github-service</module>
+  </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

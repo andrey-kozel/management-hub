@@ -29,4 +29,5 @@ security:
 services:
   user:
     url: 'http://localhost:8081'
-
+  github:
+    url: 'http://localhost:8082'
