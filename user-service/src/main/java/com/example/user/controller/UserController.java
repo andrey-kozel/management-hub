@@ -23,9 +23,9 @@ public class UserController {
 
     @PostMapping
     public UserResponse saveOrGet(@RequestBody final SaveOrGetUserRequest request) {
-      final User user = userConverter.fromDto(request);
-      User receivedUser = userFacade.saveOrGet(user);
-      return userConverter.toDto(receivedUser);
+        final User user = userConverter.fromDto(request);
+        User receivedUser = userFacade.saveOrGet(user);
+        return userConverter.toDto(receivedUser);
     }
 
     @GetMapping("{userId}")
