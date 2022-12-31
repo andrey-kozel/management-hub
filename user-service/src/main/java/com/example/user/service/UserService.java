@@ -11,19 +11,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-  private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-  public User saveOrGet(User user) {
-    return userRepository.getByAccountIdAndProvider(user.getAccountId(), user.getProvider())
-      .orElseGet(() -> userRepository.save(user));
-  }
+    public Optional<User> getByAccountIdAndProvider(final String accountId, final String provider) {
+        return userRepository.getByAccountIdAndProvider(accountId, provider);
+    }
 
-  public User get(final Long userId) {
-    return userRepository.get(userId);
-  }
+    public User saveOrGet(final User user) {
+        return userRepository.getByUsernameAndProvider(user.getAccountId(), user.getProvider())
+                .orElseGet(() -> userRepository.save(user));
+    }
 
-  public Optional<User> getByAccountIdAndProvider(final String accountId, final String provider) {
-    return userRepository.getByAccountIdAndProvider(accountId, provider);
-  }
-
+    public User get(final Long userId) {
+        return userRepository.get(userId);
+    }
 }

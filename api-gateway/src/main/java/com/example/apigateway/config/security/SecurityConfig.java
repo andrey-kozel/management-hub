@@ -16,25 +16,24 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  private final SuccessAuthHandler successHandler;
-  private final JwtTokenFilter jwtTokenFilter;
+    private final SuccessAuthHandler successHandler;
+    private final JwtTokenFilter jwtTokenFilter;
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http
-            .csrf().disable()
-      .authorizeRequests(a -> a
-        .antMatchers("/", "/error").permitAll()
-        .anyRequest().authenticated()
-      )
-      .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and()
-      .oauth2Login()
-      .successHandler(successHandler)
-      .and()
-      .addFilterBefore(jwtTokenFilter, OAuth2LoginAuthenticationFilter.class)
-      .build();
-  }
-
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf().disable()
+                .authorizeRequests(a -> a
+                        .antMatchers("/", "/error").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .oauth2Login()
+                .successHandler(successHandler)
+                .and()
+                .addFilterBefore(jwtTokenFilter, OAuth2LoginAuthenticationFilter.class)
+                .build();
+    }
 }

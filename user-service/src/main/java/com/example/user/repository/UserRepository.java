@@ -10,14 +10,14 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends Repository<User, Long> {
 
-  User save(final User user);
+    User save(final User user);
 
-  @Query("SELECT * FROM users where account_id = :accountId and provider = :provider")
-  Optional<User> getByAccountIdAndProvider(
-    @Param("accountId") final String accountId,
-    @Param("provider") final String provider
-  );
+    @Query("SELECT * FROM users where account_id = :accountId and provider = :provider")
+    Optional<User> getByUsernameAndProvider(
+            @Param("accountId") final String accountId,
+            @Param("provider") final String provider
+    );
 
-  @Query("SELECT * FROM users where id = :id")
-  User get(@Param("id") Long userId);
+    @Query("SELECT * FROM users where id = :id")
+    User get(@Param("id") Long userId);
 }

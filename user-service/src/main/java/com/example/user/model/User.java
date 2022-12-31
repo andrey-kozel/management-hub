@@ -12,17 +12,17 @@ import org.springframework.data.relational.core.mapping.Table;
 @Data
 public class User {
 
-  @Id
-  String id;
+    @Id
+    String id;
 
-  @Column("account_id")
-  String accountId;
+    @Column("account_id")
+    String accountId;
 
-  @Column("name")
-  String name;
+    @Column("name")
+    String name;
+    
+    String provider;
 
-  String provider;
-
-  @Column("organization_id")
-  int organizationId;
+    @Column("organization_id")
+    int organizationId;
 }
