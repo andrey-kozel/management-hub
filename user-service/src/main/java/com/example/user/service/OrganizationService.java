@@ -1,17 +1,17 @@
 package com.example.user.service;
 
+import java.util.Optional;
+
 import com.example.user.model.Organization;
 import com.example.user.repository.OrganizationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class OrganizationService {
     private final OrganizationRepository organizationRepository;
-    
+
     public Organization saveOrganization(String organizationName) {
         Optional<Organization> organization = organizationRepository.getByName(organizationName);
 

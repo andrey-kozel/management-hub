@@ -1,11 +1,11 @@
 package com.example.user.repository;
 
+import java.util.Optional;
+
 import com.example.user.model.Organization;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
-
-import java.util.Optional;
 
 public interface OrganizationRepository extends Repository<Organization, Long> {
 

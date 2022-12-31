@@ -1,11 +1,11 @@
 package com.example.user.service;
 
+import java.util.Optional;
+
 import com.example.user.model.User;
 import com.example.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ public class UserService {
     }
 
     public User saveOrGet(final User user) {
-        return userRepository.getByUsernameAndProvider(user.getAccountId(), user.getProvider())
+        return userRepository.getByAccountIdAndProvider(user.getAccountId(), user.getProvider())
                 .orElseGet(() -> userRepository.save(user));
     }
 

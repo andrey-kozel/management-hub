@@ -1,13 +1,13 @@
 package com.example.user.facade;
 
+import java.util.Optional;
+
 import com.example.user.model.Organization;
 import com.example.user.model.User;
 import com.example.user.service.OrganizationService;
 import com.example.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor

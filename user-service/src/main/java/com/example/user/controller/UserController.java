@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping("{userId}")
     public UserResponse get(@PathVariable("userId") final Long userId) {
-        final User user = userService.get(userId);
+        final User user = userFacade.get(userId);
         return userConverter.toDto(user);
     }
 }
