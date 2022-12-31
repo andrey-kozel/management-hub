@@ -7,8 +7,7 @@ import lombok.Value;
 @Value
 public class SaveOrGetUserRequest {
 
-  String accountId;
-  String name;
-  String provider;
-
+    String accountId;
+    String name;
+    String provider;
 }

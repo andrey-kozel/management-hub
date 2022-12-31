@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
 
-  private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-  public User saveOrGet(final User user) {
-    return userRepository.getByUsernameAndProvider(user.getAccountId(), user.getProvider())
-      .orElseGet(() -> userRepository.save(user));
-  }
+    public User saveOrGet(final User user) {
+        return userRepository.getByUsernameAndProvider(user.getAccountId(), user.getProvider())
+                .orElseGet(() -> userRepository.save(user));
+    }
 
-  public User get(final Long userId) {
-    return userRepository.get(userId);
-  }
+    public User get(final Long userId) {
+        return userRepository.get(userId);
+    }
 }

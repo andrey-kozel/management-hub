@@ -14,16 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SessionController {
 
-  private final UserClient userClient;
+    private final UserClient userClient;
 
-  @GetMapping
-  public UserResponse getCurrentUser() {
-    final DefaultOAuth2User principal = (DefaultOAuth2User) SecurityContextHolder
-      .getContext()
-      .getAuthentication()
-      .getPrincipal();
-    final Long userId = Long.valueOf(principal.getName());
-    return userClient.get(userId);
-  }
-
+    @GetMapping
+    public UserResponse getCurrentUser() {
+        final DefaultOAuth2User principal = (DefaultOAuth2User) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        final Long userId = Long.valueOf(principal.getName());
+        return userClient.get(userId);
+    }
 }
