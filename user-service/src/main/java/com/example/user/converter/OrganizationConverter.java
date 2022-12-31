@@ -8,6 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface OrganizationConverter {
 
-  @Mapping(target = "id")
-  OrganizationResponse toDto(final Organization savedOrganization);
+    @Mapping(target = "id")
+    OrganizationResponse toDto(final Organization savedOrganization);
 }
