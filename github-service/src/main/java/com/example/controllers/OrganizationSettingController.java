@@ -1,13 +1,11 @@
 package com.example.controllers;
 
-import com.example.dto.GetAccessTokenDto;
 import com.example.dto.SaveOrganizationSettingsDto;
 import com.example.facades.OrganizationSettingsFacade;
 import com.example.model.OrganizationSettings;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,7 +22,7 @@ public class OrganizationSettingController {
     }
     @CrossOrigin("http://localhost:3000")
     @RequestMapping(method = RequestMethod.GET, path = "/{organizationId}")
-    public String getAccessToken(final @PathVariable Long organizationId) {
+    public String getAccessToken(final @PathVariable(value = "organizationId") Long organizationId) {
         return facade.getToken(organizationId);
     }
 }

@@ -31,10 +31,7 @@ const OrganizationSettings = () => {
                 <Button
                     variant="contained"
                     sx={{marginTop: 3}}
-                    onClick={() => {
-                        saveToken();
-                        clearInput();
-                    }}
+                    onClick={saveToken}
                 >
                     Save
                 </Button>

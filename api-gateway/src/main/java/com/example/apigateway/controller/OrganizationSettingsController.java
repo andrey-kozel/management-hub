@@ -21,6 +21,7 @@ public class OrganizationSettingsController {
     public ResponseEntity<OrganizationSettings> saveAccessToken(@RequestBody SaveOrganizationSettingsDto dto) {
         return ResponseEntity.ok(service.save(dto));
     }
+
     @RequestMapping(method = RequestMethod.GET, path = "/{organizationId}")
     public ResponseEntity<GetAccessTokenDto> getAccessToken(final @PathVariable Long organizationId) {
         GetAccessTokenDto dto = new GetAccessTokenDto();
