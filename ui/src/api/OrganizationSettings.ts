@@ -4,10 +4,11 @@ import {useEffect, useState} from "react";
 export const saveAccessToken = (accessToken: string) => {
     try {
         let organizationId = 1;
-        axios.post('http://localhost:9090/api/v1/github-service/organization-settings/access-token/',
+        axios.post('http://localhost:8080/api/v1/github-service/organization-settings/access-token/',
             {organizationId, accessToken});
-    } catch (e) {
-        alert(e);
+    } catch (e: unknown) {
+        const error = e as AxiosError;
+        alert(error.message);
     }
 }
 
