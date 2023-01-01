@@ -18,4 +18,8 @@ public class OrganizationSettingsService {
     public OrganizationSettings save(SaveOrganizationSettingsDto dto) {
         return client.saveAccessToken(dto);
     }
+
+    public String getAccessToken(long organizationId) {
+        return client.getAccessToken(organizationId);
+    }
 }

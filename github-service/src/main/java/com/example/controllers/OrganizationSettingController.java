@@ -24,7 +24,7 @@ public class OrganizationSettingController {
     }
     @CrossOrigin("http://localhost:3000")
     @RequestMapping(method = RequestMethod.GET, path = "/{organizationId}")
-    public ResponseEntity<GetAccessTokenDto> getAccessToken(final @PathVariable Long organizationId) {
-        return ResponseEntity.ok(facade.getToken(organizationId));
+    public String getAccessToken(final @PathVariable Long organizationId) {
+        return facade.getToken(organizationId);
     }
 }

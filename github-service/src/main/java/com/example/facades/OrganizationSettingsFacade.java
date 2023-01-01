@@ -1,6 +1,5 @@
 package com.example.facades;
 
-import com.example.dto.GetAccessTokenDto;
 import com.example.dto.SaveOrganizationSettingsDto;
 import com.example.converter.OrganizationSettingsConverter;
 import com.example.model.OrganizationSettings;
@@ -31,15 +30,12 @@ public class OrganizationSettingsFacade {
         return service.save(organizationSettings);
     }
 
-    public GetAccessTokenDto getToken(long organizationId) {
+    public String getToken(long organizationId) {
         OrganizationSettings organizationSettings = service.find(organizationId);
         String token = organizationSettings.getAccessToken();
-        GetAccessTokenDto dto = new GetAccessTokenDto();
-        if (!token.isBlank()) {
-            dto.setAccessToken(token.substring(token.length()-5));
-        } else {
-            dto.setAccessToken("");
+        if (!token.isEmpty()) {
+            return token.substring(token.length() - 5);
         }
-        return dto;
+        return "";
     }
 }

@@ -4,6 +4,7 @@ import com.example.apigateway.dto.SaveOrganizationSettingsDto;
 import com.example.apigateway.model.OrganizationSettings;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,4 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface OrganizationSettingsClient {
     @RequestMapping(method = RequestMethod.POST, path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     OrganizationSettings saveAccessToken(@RequestBody SaveOrganizationSettingsDto dto);
+
+    @RequestMapping(method = RequestMethod.GET, path = "/{organizationId}")
+    String getAccessToken(@PathVariable(value = "organizationId") Long organizationId);
 }
