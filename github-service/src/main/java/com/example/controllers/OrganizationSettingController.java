@@ -1,6 +1,7 @@
 package com.example.controllers;
 
-import com.example.client.dto.SaveOrganizationSettingsDto;
+import com.example.dto.GetAccessTokenDto;
+import com.example.dto.SaveOrganizationSettingsDto;
 import com.example.facades.OrganizationSettingsFacade;
 import com.example.model.OrganizationSettings;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +16,15 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class OrganizationSettingController {
     private final OrganizationSettingsFacade facade;
-
+    @CrossOrigin("http://localhost:3000")
     @RequestMapping(method = RequestMethod.POST, path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<OrganizationSettings> saveAccessToken(@RequestBody SaveOrganizationSettingsDto dto) {
+    public OrganizationSettings saveAccessToken(final @RequestBody SaveOrganizationSettingsDto dto) {
         OrganizationSettings organizationSettings = facade.buildOrganizationSettings(dto);
-        return ResponseEntity.ok(facade.save(organizationSettings));
+        return facade.save(organizationSettings);
+    }
+    @CrossOrigin("http://localhost:3000")
+    @RequestMapping(method = RequestMethod.GET, path = "/{organizationId}")
+    public ResponseEntity<GetAccessTokenDto> getAccessToken(final @PathVariable Long organizationId) {
+        return ResponseEntity.ok(facade.getToken(organizationId));
     }
 }
