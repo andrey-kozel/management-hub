@@ -54,18 +54,18 @@ public class SuccessAuthHandler extends SimpleUrlAuthenticationSuccessHandler {
       .build();
     final UserResponse result = userClient.saveOrGet(saveOrGetUserRequest);
     final String token = tokenProvider.generateToken(result.getId(), result.getLogin(), result.getAccountId());
-    final String csrfToken = tokenProvider.generateToken(request).getToken();
+   // final String csrfToken = tokenProvider.generateToken(request).getToken();
     clearAuthenticationAttributes(request);
     final Cookie cookie = new Cookie(TOKEN_NAME, token);
     cookie.setPath("/");
     cookie.setHttpOnly(true);
     cookie.setMaxAge((int) expiration);
-    final Cookie csrfCookie = new Cookie(CSRF_TOKEN_NAME, csrfToken);
-    csrfCookie.setPath("/");
-    csrfCookie.setHttpOnly(true);
-    csrfCookie.setMaxAge((int) expiration);
+//    final Cookie csrfCookie = new Cookie(CSRF_TOKEN_NAME, csrfToken);
+//    csrfCookie.setPath("/");
+//    csrfCookie.setHttpOnly(true);
+//    csrfCookie.setMaxAge((int) expiration);
     response.addCookie(cookie);
-    response.addCookie(csrfCookie);
+//    response.addCookie(csrfCookie);
     getRedirectStrategy().sendRedirect(request, response, redirectUrl);
   }
 }

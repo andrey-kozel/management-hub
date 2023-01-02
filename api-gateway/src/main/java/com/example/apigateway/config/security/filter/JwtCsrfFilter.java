@@ -24,14 +24,14 @@ import java.io.IOException;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class JwtCsrfFilter extends OncePerRequestFilter {
+public class JwtCsrfFilter {
 
     private final CsrfTokenRepository tokenRepository;
 
     @Value("${security.secret}")
     private String jwtSecret;
 
-    @Override
+//    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         request.setAttribute(HttpServletResponse.class.getName(), response);
@@ -64,9 +64,10 @@ public class JwtCsrfFilter extends OncePerRequestFilter {
                     filterChain.doFilter(request, response);
                 }
             } catch (JwtException e) {
-                if (this.logger.isDebugEnabled()) {
-                    this.logger.debug("Invalid CSRF token found for " + UrlUtils.buildFullRequestUrl(request));
-                }
+                log.error(e.getMessage());
+//                if (this.logger.isDebugEnabled()) {
+//                    this.logger.debug("Invalid CSRF token found for " + UrlUtils.buildFullRequestUrl(request));
+//                }
             }
         }
     }

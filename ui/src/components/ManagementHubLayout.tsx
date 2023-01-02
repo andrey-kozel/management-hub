@@ -41,7 +41,7 @@ const navigationItems = [
   },
   {
     title: 'Organization settings',
-    path: 'organizationSettings',
+    path: 'organization-settings',
     icon: <SettingsIcon />
   }
 ];

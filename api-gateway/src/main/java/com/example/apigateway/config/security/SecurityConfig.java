@@ -23,12 +23,13 @@ public class SecurityConfig {
   private final SuccessAuthHandler successHandler;
   private final JwtTokenFilter jwtTokenFilter;
 
-  private final JwtCsrfFilter jwtCsrfFilter;
+  //private final JwtCsrfFilter jwtCsrfFilter;
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http
       .cors().and()
+            .csrf().disable()
       .authorizeRequests(a -> a
         .antMatchers("/", "/error").permitAll()
         .anyRequest().authenticated()
@@ -39,9 +40,9 @@ public class SecurityConfig {
       .oauth2Login()
       .successHandler(successHandler)
       .and()
-      .addFilterAt(jwtCsrfFilter, CsrfFilter.class)
-      .csrf().ignoringAntMatchers("/**")
-      .and()
+//      .addFilterAt(jwtCsrfFilter, CsrfFilter.class)
+//      .csrf().ignoringAntMatchers("/**")
+//      .and()
       .addFilterBefore(jwtTokenFilter, OAuth2LoginAuthenticationFilter.class)
       .build();
   }
