@@ -16,12 +16,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SuccessAuthHandler extends SimpleUrlAuthenticationSuccessHandler {
 
   private static final String TOKEN_NAME = "JWT";
+  public static final String CSRF_TOKEN_NAME = "CSRF_TOKEN";
   private static final long expiration = Duration.ofHours(3).toSeconds();
 
   private final String redirectUrl;
@@ -52,13 +54,18 @@ public class SuccessAuthHandler extends SimpleUrlAuthenticationSuccessHandler {
       .build();
     final UserResponse result = userClient.saveOrGet(saveOrGetUserRequest);
     final String token = tokenProvider.generateToken(result.getId(), result.getLogin(), result.getAccountId());
+    final String csrfToken = tokenProvider.generateToken(request).getToken();
     clearAuthenticationAttributes(request);
     final Cookie cookie = new Cookie(TOKEN_NAME, token);
     cookie.setPath("/");
     cookie.setHttpOnly(true);
     cookie.setMaxAge((int) expiration);
+    final Cookie csrfCookie = new Cookie(CSRF_TOKEN_NAME, csrfToken);
+    csrfCookie.setPath("/");
+    csrfCookie.setHttpOnly(true);
+    csrfCookie.setMaxAge((int) expiration);
     response.addCookie(cookie);
-
+    response.addCookie(csrfCookie);
     getRedirectStrategy().sendRedirect(request, response, redirectUrl);
   }
 }
