@@ -7,13 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.InvalidCsrfTokenException;
-import org.springframework.security.web.csrf.MissingCsrfTokenException;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -24,14 +21,14 @@ import java.io.IOException;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class JwtCsrfFilter {
+public class JwtCsrfFilter extends OncePerRequestFilter {
 
     private final CsrfTokenRepository tokenRepository;
 
     @Value("${security.secret}")
     private String jwtSecret;
 
-//    @Override
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         request.setAttribute(HttpServletResponse.class.getName(), response);
@@ -64,10 +61,7 @@ public class JwtCsrfFilter {
                     filterChain.doFilter(request, response);
                 }
             } catch (JwtException e) {
-                log.error(e.getMessage());
-//                if (this.logger.isDebugEnabled()) {
-//                    this.logger.debug("Invalid CSRF token found for " + UrlUtils.buildFullRequestUrl(request));
-//                }
+                log.debug("Invalid CSRF token found for " + UrlUtils.buildFullRequestUrl(request));
             }
         }
     }
