@@ -1,14 +1,12 @@
 package com.example.github.controller;
 
+import com.example.github.dto.RepositoryCommitDayActivityDto;
 import com.example.github.facade.RepositoryStatisticsFacade;
-import com.example.github.model.WeekCommitsStatistic;
+import com.example.github.model.RepositoryCommitDayActivity;
+import com.example.github.model.WeekCommitsActivityStatistic;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/repository/{repositoryId}/stat")
@@ -17,8 +15,13 @@ public class RepositoryStatisticsController {
     private final RepositoryStatisticsFacade repositoryStatisticsFacade;
 
     @PostMapping("commit_activity")
-    void addOrUpdateCommitActivity(@RequestBody List<WeekCommitsStatistic> weekCommitsStatisticList,
-                           @PathVariable Long repositoryId) {
-        repositoryStatisticsFacade.addOrUpdateCommitActivity(weekCommitsStatisticList, repositoryId);
+    void addOrUpdateCommitActivity(@RequestBody List<WeekCommitsActivityStatistic> weekCommitsActivityStatisticList,
+                                   @PathVariable Long repositoryId) {
+        repositoryStatisticsFacade.addOrUpdateCommitActivity(weekCommitsActivityStatisticList, repositoryId);
+    }
+
+    @GetMapping("commit_activity")
+    List<RepositoryCommitDayActivityDto> getOneYearCommitActivity(@PathVariable Long repositoryId) {
+        return repositoryStatisticsFacade.getOneYearCommitActivity(repositoryId);
     }
 }

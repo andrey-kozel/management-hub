@@ -9,7 +9,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @Value
-public class WeekCommitsStatistic {
+public class WeekCommitsActivityStatistic {
     @JsonProperty("week")
     Long timestamp;
 
