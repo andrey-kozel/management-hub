@@ -3,8 +3,8 @@ package com.example.github.facade;
 import com.example.github.converter.RepositoryCommitDayActivityConverter;
 import com.example.github.dto.RepositoryCommitDayActivityDto;
 import com.example.github.model.RepositoryCommitDayActivity;
-import com.example.github.model.WeekCommitsActivityStatistic;
-import com.example.github.service.RepositoryStatisticService;
+import com.example.github.model.WeekCommitsActivityStatistics;
+import com.example.github.service.RepositoryStatisticsService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,13 +16,13 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class RepositoryStatisticsFacade {
-    private final RepositoryStatisticService repositoryStatisticService;
+    private final RepositoryStatisticsService repositoryStatisticsService;
     private final RepositoryCommitDayActivityConverter converter;
     private final Long SECONDS_IN_ONE_DAY = 86400L;
     private final Long SECONDS_IN_ONE_YEAR = 31556926L;
 
-    public void addOrUpdateCommitActivity(List<WeekCommitsActivityStatistic> weekCommitsActivityStatisticList, Long repositoryId) {
-        repositoryStatisticService.addOrUpdateCommitActivity(weekCommitsActivityStatisticList, repositoryId);
+    public void addOrUpdateCommitActivity(List<WeekCommitsActivityStatistics> weekCommitsActivityStatisticsList, Long repositoryId) {
+        repositoryStatisticsService.addOrUpdateCommitActivity(weekCommitsActivityStatisticsList, repositoryId);
     }
 
     public List<RepositoryCommitDayActivityDto> getOneYearCommitActivity(Long repositoryId) {
@@ -30,7 +30,7 @@ public class RepositoryStatisticsFacade {
         final Long[] time = {nowDate - SECONDS_IN_ONE_YEAR};
 
         List<RepositoryCommitDayActivity> repositoryCommitDayActivityList =
-                repositoryStatisticService.getCommitActivity(repositoryId, time[0]).orElseGet(ArrayList::new)
+                repositoryStatisticsService.getCommitActivity(repositoryId, time[0]).orElseGet(ArrayList::new)
                         .stream()
                         .sorted(Comparator.comparingLong(RepositoryCommitDayActivity::getDate))
                         .toList();
