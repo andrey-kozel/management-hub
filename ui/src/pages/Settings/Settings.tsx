@@ -17,7 +17,6 @@ const Settings = () => {
     }
 
     const updateExistingAccessToken = () => {
-        console.log("existing access token updated")
         getAccessToken(1).then(r => setExistingAccessToken(r));
     }
 
@@ -28,16 +27,14 @@ const Settings = () => {
     const handleSubmit = () => {
         if (validateTokenLength()) {
             saveToken();
-            updateExistingAccessToken();
             clearInput();
+            updateExistingAccessToken()
             return;
         }
         alert(errorText);
     }
 
-    useEffect(() => {
-        updateExistingAccessToken()
-    }, [])
+    useEffect(() => updateExistingAccessToken(), [])
 
     return (
         <div>
