@@ -16,8 +16,13 @@ export const saveAccessToken = (organizationId: number, accessToken: string) => 
 
 export const getAccessToken = async (organizationId: number) => {
     try {
-        const response = await axios.get('http://localhost:8080/api/v1/github-service/organization-settings/access-token/'
-            + organizationId, {withCredentials: true});
+        const response =
+            await axios.post('http://localhost:8080/api/v1/github-service/organization-settings/access-token/existing',
+                {organizationId}, {
+                    withCredentials: true,
+                    xsrfCookieName: "MH-XSRF",
+                    xsrfHeaderName: "MH-X-XSRF"
+                });
         return response.data.accessToken;
     } catch (e: unknown) {
         const error = e as AxiosError;

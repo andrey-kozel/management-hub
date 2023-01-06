@@ -1,6 +1,7 @@
 package com.example.apigateway.controller;
 
 import com.example.apigateway.dto.GetAccessTokenDto;
+import com.example.apigateway.dto.OrganizationSettingsDto;
 import com.example.apigateway.dto.SaveOrganizationSettingsDto;
 import com.example.apigateway.facades.OrgSvcFacade;
 import com.example.apigateway.service.OrganizationSettingsService;
@@ -31,10 +32,10 @@ public class OrganizationSettingsController {
         return ResponseEntity.ok(service.save(dto));
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{organizationId}")
-    public ResponseEntity<GetAccessTokenDto> getAccessToken(final @PathVariable Long organizationId) {
+    @RequestMapping(method = RequestMethod.POST, path = "/existing", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GetAccessTokenDto> getAccessToken(final @RequestBody OrganizationSettingsDto orgDto) {
         GetAccessTokenDto dto = new GetAccessTokenDto();
-        dto.setAccessToken(service.getAccessToken(organizationId));
+        dto.setAccessToken(service.getAccessToken(orgDto.getOrganizationId()));
         return ResponseEntity.ok(dto);
     }
 }

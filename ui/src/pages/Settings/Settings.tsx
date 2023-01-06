@@ -1,5 +1,5 @@
 import {Button, Container, TextField} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {getAccessToken, saveAccessToken} from "../../service/SettingsService";
 import AccessToken from "../../components/AccessToken";
 
@@ -17,6 +17,7 @@ const Settings = () => {
     }
 
     const updateExistingAccessToken = () => {
+        console.log("existing access token updated")
         getAccessToken(1).then(r => setExistingAccessToken(r));
     }
 
@@ -34,7 +35,9 @@ const Settings = () => {
         alert(errorText);
     }
 
-    updateExistingAccessToken();
+    useEffect(() => {
+        updateExistingAccessToken()
+    }, [])
 
     return (
         <div>
