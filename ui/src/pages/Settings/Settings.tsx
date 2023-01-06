@@ -20,9 +20,7 @@ const Settings = () => {
         getAccessToken(1).then(r => setExistingAccessToken(r));
     }
 
-    const validateTokenLength = () => {
-        return accessToken.length >= 5;
-    }
+    useEffect(() => updateExistingAccessToken(), [])
 
     const handleSubmit = () => {
         if (validateTokenLength()) {
@@ -34,7 +32,9 @@ const Settings = () => {
         alert(errorText);
     }
 
-    useEffect(() => updateExistingAccessToken(), [])
+    const validateTokenLength = () => {
+        return accessToken.length >= 5;
+    }
 
     return (
         <div>
