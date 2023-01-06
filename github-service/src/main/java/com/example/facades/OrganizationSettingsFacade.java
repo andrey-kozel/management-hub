@@ -27,15 +27,22 @@ public class OrganizationSettingsFacade {
     }
 
     public OrganizationSettings save(OrganizationSettings organizationSettings) {
-        return service.save(organizationSettings);
+        OrganizationSettings orgSvc = service.save(organizationSettings);
+        orgSvc.setAccessToken(
+                        cutToken(orgSvc.getAccessToken()));
+        return organizationSettings;
     }
 
     public String getToken(long organizationId) {
         OrganizationSettings organizationSettings = service.find(organizationId);
         String token = organizationSettings.getAccessToken();
         if (!token.isEmpty()) {
-            return token.substring(token.length() - 5);
+            return cutToken(token);
         }
         return "";
+    }
+
+    public String cutToken(String token) {
+        return token.substring(token.length() - 5);
     }
 }
