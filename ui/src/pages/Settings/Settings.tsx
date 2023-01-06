@@ -47,12 +47,11 @@ const Settings = () => {
                     >{successText}</Alert>
                     : <></>
                 }
-                {error ? <Alert
+                {error ?
+                    <Alert
                         severity="error"
                         onClose={() => setError(false)}
-                    >
-                        {errorText}
-                    </Alert>
+                    >{errorText}</Alert>
                     : <></>
                 }
                 {existingAccessToken ?

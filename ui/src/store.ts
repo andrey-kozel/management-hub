@@ -42,7 +42,6 @@ export const useSettingsStore = create<SettingsState>(set => ({
             try {
                 const accessToken = await SettingsService.getAccessToken(1);
                 set({accessToken});
-                console.log(accessToken);
             } catch (error) {
                 set({accessToken: ''})
             } finally {
