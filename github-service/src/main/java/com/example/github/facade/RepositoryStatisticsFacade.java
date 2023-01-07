@@ -6,8 +6,6 @@ import com.example.github.model.RepositoryCommitDayActivity;
 import com.example.github.model.WeekCommitsActivityStatistics;
 import com.example.github.service.RepositoryStatisticsService;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
