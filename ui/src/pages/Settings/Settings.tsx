@@ -1,63 +1,27 @@
-import {Alert, Button, Container, TextField} from "@mui/material";
-import React, {useEffect, useState} from "react";
+import {Alert, Button, Container, Snackbar, TextField} from "@mui/material";
+import React, {useEffect} from "react";
 import AccessToken from "../../components/AccessToken";
-import SettingsService from "../../service/SettingsService";
-import {useSettingsStore} from "../../store";
+import {useSettingsStore} from "./store";
 
 const Settings = () => {
-    const [accessToken, setAccessToken] = useState('');
-    const [existingAccessToken, setExistingAccessToken] = useState('');
-    const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
-
-    const errorText: string = 'Access token min length is 5 characters!';
-    const successText: string = 'Access token saved successfully!';
+    const accessToken = useSettingsStore(state => state.accessToken);
+    const existingToken = useSettingsStore(state => state.existingToken);
+    const notification = useSettingsStore(state => state.notification);
 
     const getAccessToken = useSettingsStore(state => state.getAccessToken);
-    const existingAccessTokenFromStore = useSettingsStore(state => state.accessToken);
+    const setAccessToken = useSettingsStore(state => state.setAccessToken);
+    const saveToken = useSettingsStore(state => state.saveToken);
+    const closeNotification = useSettingsStore(state => state.closeNotification);
 
     useEffect(() => {
         getAccessToken();
     }, [])
 
 
-    const saveToken = () => {
-        SettingsService.saveAccessToken(1, accessToken).then(t => setExistingAccessToken(t));
-    }
-
-    const handleSubmit = () => {
-        if (accessToken.length >= 5) {
-            saveToken();
-            setAccessToken('');
-            setError(false);
-            setSuccess(true);
-            return;
-        }
-        setError(true);
-        setSuccess(false);
-    }
-
     return (
         <>
             <Container>
-                {success ?
-                    <Alert
-                        severity="success"
-                        onClose={() => setSuccess(false)}
-                    >{successText}</Alert>
-                    : <></>
-                }
-                {error ?
-                    <Alert
-                        severity="error"
-                        onClose={() => setError(false)}
-                    >{errorText}</Alert>
-                    : <></>
-                }
-                {existingAccessToken ?
-                    <AccessToken token={existingAccessToken}/> :
-                    <AccessToken token={existingAccessTokenFromStore}/>
-                }
+                <AccessToken token={existingToken}/>
                 <TextField
                     id="outlined-basic"
                     label="Access token"
@@ -72,10 +36,22 @@ const Settings = () => {
                 <Button
                     variant="contained"
                     sx={{marginTop: 3}}
-                    onClick={() => handleSubmit()}
+                    disabled={accessToken.length < 5}
+                    onClick={saveToken}
                 >
                     Save
                 </Button>
+                <Snackbar
+                    open={notification.open}
+                    autoHideDuration={notification.duration}
+                    onClose={closeNotification}
+                >
+                    <Alert
+                        severity={notification.severity}
+                    >
+                        {notification.message}
+                    </Alert>
+                </Snackbar>
             </Container>
         </>
     );
