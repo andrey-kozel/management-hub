@@ -1,9 +1,9 @@
 package com.example.github.dto;
 
 import lombok.Builder;
-import lombok.Value;
+import lombok.Setter;
 
-@Value
+@Setter
 @Builder
 public class RepositoryCommitDayActivityDto {
     Long date;

@@ -20,7 +20,8 @@ public interface StatisticsRepository extends Repository<RepositoryCommitDayActi
             @Param("repositoryId") final Long repositoryId
     );
 
-    @Query("SELECT date, commits, repository_id FROM github_repository_commit_day_activity_table WHERE date>:startDate")
+    @Query("SELECT date, commits, repository_id FROM github_repository_commit_day_activity_table " +
+            "WHERE repository_id=:repositoryId AND date > :startDate")
     Optional<List<RepositoryCommitDayActivity>> getRepositoryCommitDayActivityByRepositoryId(
             @Param("repositoryId") final Long repositoryId,
             @Param("startDate") final Long startDate

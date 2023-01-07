@@ -6,6 +6,8 @@ import com.example.github.model.RepositoryCommitDayActivity;
 import com.example.github.model.WeekCommitsActivityStatistics;
 import com.example.github.service.RepositoryStatisticsService;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -19,14 +21,14 @@ public class RepositoryStatisticsFacade {
     private final RepositoryStatisticsService repositoryStatisticsService;
     private final RepositoryCommitDayActivityConverter converter;
     private final Long SECONDS_IN_ONE_DAY = 86400L;
-    private final Long SECONDS_IN_ONE_YEAR = 31556926L;
+    private final Long SECONDS_IN_ONE_YEAR = 31536000L;
 
     public void addOrUpdateCommitActivity(List<WeekCommitsActivityStatistics> weekCommitsActivityStatisticsList, Long repositoryId) {
         repositoryStatisticsService.addOrUpdateCommitActivity(weekCommitsActivityStatisticsList, repositoryId);
     }
 
     public List<RepositoryCommitDayActivityDto> getOneYearCommitActivity(Long repositoryId) {
-        Long nowDate = LocalDate.now().toEpochDay() * SECONDS_IN_ONE_DAY;
+        Long nowDate = LocalDate.now().atTime(0, 0).toLocalDate().toEpochDay() * SECONDS_IN_ONE_DAY;
         final Long[] time = {nowDate - SECONDS_IN_ONE_YEAR};
 
         List<RepositoryCommitDayActivity> repositoryCommitDayActivityList =
@@ -48,14 +50,15 @@ public class RepositoryStatisticsFacade {
                                 .date(time[0])
                                 .build()
                 );
-                if(time[0] + SECONDS_IN_ONE_DAY < dayActivity.getDate()) {
-                    time[0] += SECONDS_IN_ONE_DAY;
-                } else {
-                    time[0] += SECONDS_IN_ONE_DAY * 2;
-                }
+                time[0] += SECONDS_IN_ONE_DAY;
             }
-            repositoryCommitDayActivityDtos.add(converter.toDto(dayActivity));
+            RepositoryCommitDayActivityDto buffer = converter.toDto(dayActivity);
+            buffer.setDate(time[0]);
+
+            repositoryCommitDayActivityDtos.add(buffer);
             count.getAndIncrement();
+
+            time[0] += SECONDS_IN_ONE_DAY;
 
             if(count.get() == size) {
                 while (time[0] < nowDate) {
