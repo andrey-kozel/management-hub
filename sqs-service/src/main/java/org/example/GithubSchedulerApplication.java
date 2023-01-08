@@ -6,8 +6,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class SqsApplication {
+public class GithubSchedulerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SqsApplication.class, args);
+        SpringApplication.run(GithubSchedulerApplication.class, args);
     }
 }

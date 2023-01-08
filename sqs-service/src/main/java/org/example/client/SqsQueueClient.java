@@ -1,7 +1,10 @@
 package org.example.client;
 
+
 import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.model.CreateQueueRequest;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
+import com.amazonaws.services.sqs.model.SendMessageResult;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.QueueMessageDto;
 import org.springframework.stereotype.Component;
@@ -11,12 +14,18 @@ import org.springframework.stereotype.Component;
 public class SqsQueueClient implements QueueClient{
 
     private final AmazonSQS amazonSQS;
-    final private static String QUEUE_URL = "http://localhost:4566/000000000000/syncRequest";
+    private final CreateQueueRequest createQueueRequest;
 
     @Override
-    public void sendMessage(QueueMessageDto message) {
-        amazonSQS.sendMessage(
-                new SendMessageRequest(QUEUE_URL, "organisationId: " + message.getOrganisationId() + "\n" +
-                "access_token: " + message.getAccessToken()));
+    public String getQueueUrl() {
+        return amazonSQS.getQueueUrl(createQueueRequest.getQueueName()).getQueueUrl();
+    }
+
+    @Override
+    public SendMessageResult sendMessage(QueueMessageDto message) {
+
+        return amazonSQS.sendMessage(
+                new SendMessageRequest(getQueueUrl(), "organisationId: " + message.getOrganisationId() + ";" +
+                " access_token: " + message.getAccessToken()));
     }
 }

@@ -8,3 +8,17 @@ services:
       POSTGRES_PASSWORD: "postgres"
     ports:
       - "35432:5432"
+
+  localstack:
+    container_name: "sqs-service-localstack"
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+      - "4572:4572"
+    environment:
+      - SERVICES:sqs
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - ./scripts/localstack:/docker-entrypoint-initaws.d

@@ -1,16 +1,26 @@
 package org.example.service;
 
-import lombok.AllArgsConstructor;
+import com.amazonaws.services.sqs.model.SendMessageResult;
+import lombok.RequiredArgsConstructor;
 import org.example.client.QueueClient;
 import org.example.dto.QueueMessageDto;
+import org.example.scheduler.GithubApi;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class QueueService {
-    QueueClient queueClient;
+    private final QueueClient queueClient;
+    private final GithubApi githubApi;
 
-    public void sendMessage(QueueMessageDto message) {
-        queueClient.sendMessage(message);
+    public SendMessageResult sendMessage(QueueMessageDto message) {
+        return queueClient.sendMessage(message);
+    }
+
+    public String getToken(Long organisationId) {
+        if (!githubApi.getOrgId().equals(organisationId)) {
+            return null;
+        }
+        return githubApi.getAccessToken();
     }
 }

@@ -4,6 +4,7 @@ import org.example.dto.QueueMessageDto;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface QueueConverter {
+public interface QueueMessageConverter {
     QueueMessageDto toDto(Long orgId, String accessToken);
+
 }

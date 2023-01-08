@@ -1,9 +1,10 @@
 package org.example.client;
 
+import com.amazonaws.services.sqs.model.SendMessageResult;
 import org.example.dto.QueueMessageDto;
-import org.springframework.stereotype.Component;
 
-@Component
 public interface QueueClient {
-    void sendMessage(QueueMessageDto queueMessage);
+
+    String getQueueUrl();
+    SendMessageResult sendMessage(QueueMessageDto queueMessage);
 }

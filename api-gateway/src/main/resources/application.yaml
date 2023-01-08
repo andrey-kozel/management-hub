@@ -29,6 +29,6 @@ security:
 services:
   user:
     url: 'http://localhost:8081'
-  sqs-service:
+  messages-service:
     url: 'http://localhost:8082'
 
