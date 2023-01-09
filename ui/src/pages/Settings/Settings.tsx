@@ -36,7 +36,7 @@ const Settings = () => {
                 <Button
                     variant="contained"
                     sx={{marginTop: 3}}
-                    disabled={accessToken.length < 5}
+                     disabled={accessToken.length < 5}
                     onClick={saveToken}
                 >
                     Save

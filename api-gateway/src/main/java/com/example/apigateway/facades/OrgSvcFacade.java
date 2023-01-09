@@ -1,22 +1,24 @@
 package com.example.apigateway.facades;
 
+import com.example.apigateway.dto.OrganizationSettingsDto;
+import com.example.apigateway.model.OrganizationSettings;
+import com.example.apigateway.service.OrganizationSettingsService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.BindingResult;
-
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class OrgSvcFacade {
-    public List<String> getRequestErrors(BindingResult bindingResult) {
-        List<String> errors = bindingResult
-                .getFieldErrors()
-                .stream()
-                .map(x -> Optional.ofNullable(x.getDefaultMessage()).orElse("unknown error"))
-                .toList();
-        log.error("User entered invalid data: " + errors);
-        return errors;
+
+    private final OrganizationSettingsService service;
+
+    public OrganizationSettings save(OrganizationSettingsDto dto) {
+        return service.save(dto);
+    }
+
+    public String getAccessToken(long organizationId) {
+        return service.getAccessToken(organizationId);
     }
 }

@@ -21,8 +21,6 @@ public class JwtProvider {
   private final String jwtSecret;
   private final Long sessionDurationMinutes;
 
-  public static final String CSRF_TOKEN_NAME = "CSRF_TOKEN";
-
   public JwtProvider(
     @Value("${security.secret}") final String jwtSecret,
     @Value("${security.session-duration-minutes}") final Long sessionDurationMinutes
@@ -31,7 +29,7 @@ public class JwtProvider {
     this.sessionDurationMinutes = sessionDurationMinutes;
   }
 
-  public String generateToken(final Long id, final String login, final String accountId) {
+  public String generateToken(final Long id, final String login, final String accountId, long organizationId) {
     final Instant instant = LocalDateTime.now()
       .plus(Duration.ofMinutes(sessionDurationMinutes))
       .toInstant(ZoneOffset.UTC);
@@ -40,6 +38,7 @@ public class JwtProvider {
       .setSubject(id.toString())
       .claim("login", login)
       .claim("accountId", accountId)
+      .claim("organizationId", organizationId)
       .setExpiration(date)
       .signWith(SignatureAlgorithm.HS512, jwtSecret)
       .compact();

@@ -1,10 +1,10 @@
 import axios, {AxiosError} from "axios";
 
 class SettingsService {
-    saveAccessToken = async (organizationId: number, accessToken: string) => {
+    saveAccessToken = async (accessToken: string) => {
         try {
-            const response = await axios.post('http://localhost:8080/api/v1/github-service/organization-settings/access-token/',
-                {organizationId, accessToken}, {
+            const response = await axios.post('http://localhost:8080/api/v1/organization/settings/',
+                {accessToken}, {
                     withCredentials: true,
                     xsrfCookieName: "MH-XSRF",
                     xsrfHeaderName: "MH-X-XSRF"
@@ -16,15 +16,16 @@ class SettingsService {
         }
     }
 
-    getAccessToken = async (organizationId: number) => {
+    getAccessToken = async () => {
         try {
             const response =
-                await axios.post('http://localhost:8080/api/v1/github-service/organization-settings/access-token/existing',
-                    {organizationId}, {
+                await axios.get('http://localhost:8080/api/v1/organization/settings/',
+                    {
                         withCredentials: true,
                         xsrfCookieName: "MH-XSRF",
                         xsrfHeaderName: "MH-X-XSRF"
                     });
+            console.log("token: " + response);
             return response.data.accessToken;
         } catch (e: unknown) {
             const error = e as AxiosError;

@@ -30,7 +30,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     getAccessToken: async () => {
         try {
             set({loading: true})
-            const accessToken = await SettingsService.getAccessToken(1);
+            const accessToken = await SettingsService.getAccessToken();
             set({
                 existingToken: accessToken,
                 notification: {
@@ -60,7 +60,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     saveToken: async () => {
         try {
             const {accessToken} = get();
-            const token = await SettingsService.saveAccessToken(1, accessToken);
+            const token = await SettingsService.saveAccessToken(accessToken);
             set({
                 existingToken: token,
                 accessToken: '',

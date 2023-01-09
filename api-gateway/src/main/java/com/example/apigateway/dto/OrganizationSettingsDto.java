@@ -1,12 +1,13 @@
 package com.example.apigateway.dto;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.jackson.Jacksonized;
+import lombok.Value;
 
-@Data
 @RequiredArgsConstructor
-@Jacksonized
+@Data
 public class OrganizationSettingsDto {
-    long organizationId;
+    private long organizationId;
+    private String accessToken;
 }

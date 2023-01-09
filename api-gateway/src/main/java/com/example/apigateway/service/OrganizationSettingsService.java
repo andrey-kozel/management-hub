@@ -1,7 +1,7 @@
 package com.example.apigateway.service;
 
 import com.example.apigateway.client.OrganizationSettingsClient;
-import com.example.apigateway.dto.SaveOrganizationSettingsDto;
+import com.example.apigateway.dto.OrganizationSettingsDto;
 import com.example.apigateway.model.OrganizationSettings;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class OrganizationSettingsService {
     private final OrganizationSettingsClient client;
 
-    public OrganizationSettings save(SaveOrganizationSettingsDto dto) {
+    public OrganizationSettings save(OrganizationSettingsDto dto) {
         return client.saveAccessToken(dto);
     }
 

@@ -6,5 +6,5 @@ create table organization_settings
     UNIQUE (id, organization_id)
 );
 
-alter table users
-    alter column name drop not null;
+alter table organization_settings drop constraint organization_settings_id_organization_id_key;
+alter table organization_settings add constraint organization_id unique (organization_id)

@@ -7,6 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Value
 @Jacksonized
-public class GetOrganizationSettingsDto {
-    long id;
+public class OrganizationSettingsRequestDto {
+    long organizationId;
+    String accessToken;
 }

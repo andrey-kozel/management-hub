@@ -3,6 +3,7 @@ package com.example.apigateway.config.security;
 import com.example.apigateway.config.security.filter.JwtTokenFilter;
 import com.example.apigateway.config.security.handler.SuccessAuthHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,6 @@ import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationF
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfFilter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -20,10 +20,12 @@ public class SecurityConfig {
 
   private final SuccessAuthHandler successHandler;
   private final JwtTokenFilter jwtTokenFilter;
-
-  public static final String XSRF_COOKIE_NAME = "MH-XSRF";
-  public static final String XSRF_HEADER_NAME = "MH-X-XSRF";
-  public static final String COOKIE_DOMAIN = "localhost";
+  @Value("${csrf.xsrf_cookie_name}")
+  public String XSRF_COOKIE_NAME;
+  @Value("${csrf.xsrf_header_name}")
+  public String XSRF_HEADER_NAME;
+  @Value("${csrf.cookie_domain}")
+  public String COOKIE_DOMAIN;
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

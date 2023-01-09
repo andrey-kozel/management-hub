@@ -6,17 +6,19 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Data
 @RequiredArgsConstructor
 public class OrganizationSettingsService {
     private final OrganizationSettingsRepository repository;
 
-    public OrganizationSettings save(OrganizationSettings organizationSettings) {
-        return repository.save(organizationSettings);
+    public Optional<OrganizationSettings> getSettings(long id) {
+        return repository.findByOrganizationId(id);
     }
 
-    public OrganizationSettings find(long id) {
-        return repository.findByOrganizationId(id);
+    public void save(String token, long organizationId) {
+        repository.update(token, organizationId);
     }
 }
