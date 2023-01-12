@@ -12,7 +12,8 @@
 	<modules>
 		<module>api-gateway</module>
 		<module>user-service</module>
-	</modules>
+        <module>github-service</module>
+    </modules>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>

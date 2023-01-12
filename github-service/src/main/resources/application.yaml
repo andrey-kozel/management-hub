@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
-    url: jdbc:postgresql://localhost:35432/users
+    url: jdbc:postgresql://localhost:35432/github
 
 server:
-  port: 8081
+  port: 8082

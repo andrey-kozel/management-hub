@@ -102,5 +102,4 @@ const ManagementHubLayout = ({ children }: Props) => {
   );
 };
 
-
 export default ManagementHubLayout;
