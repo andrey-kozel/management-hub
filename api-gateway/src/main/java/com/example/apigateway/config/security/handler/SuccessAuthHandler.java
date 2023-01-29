@@ -51,7 +51,8 @@ public class SuccessAuthHandler extends SimpleUrlAuthenticationSuccessHandler {
                 .provider("GITHUB")
                 .build();
         final UserResponse result = userClient.saveOrGet(saveOrGetUserRequest);
-        final String token = tokenProvider.generateToken(result.getId(), result.getLogin(), result.getAccountId());
+        final String token = tokenProvider
+            .generateToken(result.getId(), result.getLogin(), result.getAccountId(), result.getOrganizationId());
         clearAuthenticationAttributes(request);
         final Cookie cookie = new Cookie(TOKEN_NAME, token);
         cookie.setPath("/");

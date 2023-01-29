@@ -21,8 +21,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtProvider {
 
-    private String jwtSecret;
-    private Long sessionDurationMinutes;
+    private final String jwtSecret;
+    private final Long sessionDurationMinutes;
 
     public JwtProvider(
             @Value("${security.secret}") final String jwtSecret,
@@ -32,7 +32,7 @@ public class JwtProvider {
         this.sessionDurationMinutes = sessionDurationMinutes;
     }
 
-    public String generateToken(final Long id, final String login, final String accountId) {
+    public String generateToken(final Long id, final String login, final String accountId, final long organizationId) {
         final Instant instant = LocalDateTime.now()
                 .plus(Duration.ofMinutes(sessionDurationMinutes))
                 .toInstant(ZoneOffset.UTC);
@@ -41,6 +41,7 @@ public class JwtProvider {
                 .setSubject(id.toString())
                 .claim("login", login)
                 .claim("accountId", accountId)
+                .claim("organizationId", organizationId)
                 .setExpiration(date)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
