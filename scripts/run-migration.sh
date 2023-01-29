@@ -16,4 +16,3 @@ docker run --rm \
   -password=postgres \
   migrate
 
-

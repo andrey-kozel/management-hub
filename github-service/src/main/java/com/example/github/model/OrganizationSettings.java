@@ -1,4 +1,4 @@
-package com.example.model;
+package com.example.github.model;
 
 import lombok.Builder;
 import lombok.Data;

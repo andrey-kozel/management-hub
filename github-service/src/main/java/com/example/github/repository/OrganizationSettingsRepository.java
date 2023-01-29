@@ -1,6 +1,6 @@
-package com.example.repository;
+package com.example.github.repository;
 
-import com.example.model.OrganizationSettings;
+import com.example.github.model.OrganizationSettings;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.Repository;

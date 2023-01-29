@@ -1,8 +1,8 @@
-package com.example.controllers;
+package com.example.github.controller;
 
-import com.example.dto.OrganizationSettingsRequestDto;
-import com.example.facades.OrganizationSettingsFacade;
-import com.example.model.OrganizationSettings;
+import com.example.github.dto.OrganizationSettingsRequestDto;
+import com.example.github.facades.OrganizationSettingsFacade;
+import com.example.github.model.OrganizationSettings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
