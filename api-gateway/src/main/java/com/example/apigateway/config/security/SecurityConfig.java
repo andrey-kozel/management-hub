@@ -18,34 +18,34 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  private final SuccessAuthHandler successHandler;
-  private final JwtTokenFilter jwtTokenFilter;
-  @Value("${csrf.xsrf_cookie_name}")
-  public String XSRF_COOKIE_NAME;
-  @Value("${csrf.xsrf_header_name}")
-  public String XSRF_HEADER_NAME;
-  @Value("${csrf.cookie_domain}")
-  public String COOKIE_DOMAIN;
+    private final SuccessAuthHandler successHandler;
+    private final JwtTokenFilter jwtTokenFilter;
+    @Value("${csrf.xsrf_cookie_name}")
+    public String XSRF_COOKIE_NAME;
+    @Value("${csrf.xsrf_header_name}")
+    public String XSRF_HEADER_NAME;
+    @Value("${csrf.cookie_domain}")
+    public String COOKIE_DOMAIN;
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http
-      .cors().and()
-      .authorizeRequests(a -> a
-        .antMatchers("/", "/error").permitAll()
-        .anyRequest().authenticated()
-      )
-      .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and()
-      .oauth2Login()
-      .successHandler(successHandler)
-      .and()
-      .csrf().csrfTokenRepository(csrfTokenRepository())
-      .and()
-      .addFilterBefore(jwtTokenFilter, OAuth2LoginAuthenticationFilter.class)
-      .build();
-  }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .cors().and()
+                .csrf().csrfTokenRepository(csrfTokenRepository())
+                .and()
+                .authorizeRequests(a -> a
+                        .antMatchers("/", "/error").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .oauth2Login()
+                .successHandler(successHandler)
+                .and()
+                .addFilterBefore(jwtTokenFilter, OAuth2LoginAuthenticationFilter.class)
+                .build();
+    }
 
   private CookieCsrfTokenRepository csrfTokenRepository() {
     final CookieCsrfTokenRepository repository = CookieCsrfTokenRepository.withHttpOnlyFalse();

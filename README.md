@@ -5,7 +5,11 @@ Set in idea `gitbash` as a default shell
 ## Install the next tools
 
 - Java 17
-- Node 16
+- Node 18
+
+## Naming convention
+
+Branches: feature/${number_of_github_issue}
 
 ## Environment
 
