@@ -1,7 +1,6 @@
 package com.example.apigateway.client;
 
 import com.example.apigateway.dto.OrganizationSettingsDto;
-import com.example.apigateway.dto.OrganizationSettingsRequestDto;
 import com.example.apigateway.model.OrganizationSettings;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

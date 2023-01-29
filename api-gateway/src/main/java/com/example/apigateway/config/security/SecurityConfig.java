@@ -2,7 +2,6 @@ package com.example.apigateway.config.security;
 
 import com.example.apigateway.config.security.filter.JwtTokenFilter;
 import com.example.apigateway.config.security.handler.SuccessAuthHandler;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,20 +14,30 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final SuccessAuthHandler successHandler;
     private final JwtTokenFilter jwtTokenFilter;
-    @Value("${csrf.xsrf_cookie_name}")
-    public String XSRF_COOKIE_NAME;
-    @Value("${csrf.xsrf_header_name}")
-    public String XSRF_HEADER_NAME;
-    @Value("${csrf.cookie_domain}")
-    public String COOKIE_DOMAIN;
+    public final String xsrfCookieName;
+    public final String xsrfHeaderName;
+    public final String cookieDomain;
+
+    public SecurityConfig(
+        final SuccessAuthHandler successHandler,
+        final JwtTokenFilter jwtTokenFilter,
+        @Value("${csrf.xsrf_cookie_name}") final String xsrfCookieName,
+        @Value("${csrf.xsrf_header_name}") final String xsrfHeaderName,
+        @Value("${csrf.cookie_domain}") final String cookieDomain
+    ) {
+        this.successHandler = successHandler;
+        this.jwtTokenFilter = jwtTokenFilter;
+        this.xsrfCookieName = xsrfCookieName;
+        this.xsrfHeaderName = xsrfHeaderName;
+        this.cookieDomain = cookieDomain;
+    }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
         return http
                 .cors().and()
                 .csrf().csrfTokenRepository(csrfTokenRepository())
@@ -47,13 +56,12 @@ public class SecurityConfig {
                 .build();
     }
 
-  private CookieCsrfTokenRepository csrfTokenRepository() {
-    final CookieCsrfTokenRepository repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-    repository.setSecure(true);
-    repository.setCookieName(XSRF_COOKIE_NAME);
-    repository.setHeaderName(XSRF_HEADER_NAME);
-    repository.setCookieDomain(COOKIE_DOMAIN);
-    return repository;
-  }
-
+    private CookieCsrfTokenRepository csrfTokenRepository() {
+        final CookieCsrfTokenRepository repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+        repository.setSecure(true);
+        repository.setCookieName(xsrfCookieName);
+        repository.setHeaderName(xsrfHeaderName);
+        repository.setCookieDomain(cookieDomain);
+        return repository;
+    }
 }

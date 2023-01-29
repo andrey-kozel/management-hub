@@ -8,3 +8,5 @@ services:
       POSTGRES_PASSWORD: "postgres"
     ports:
       - "35432:5432"
+    volumes:
+      - "./db/init.sql:/docker-entrypoint-initdb.d/1-init.sql"

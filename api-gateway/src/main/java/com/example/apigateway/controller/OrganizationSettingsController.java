@@ -1,12 +1,15 @@
 package com.example.apigateway.controller;
 
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import com.example.apigateway.converter.OrganizationSettingsConverter;
 import com.example.apigateway.dto.OrganizationSettingsDto;
 import com.example.apigateway.dto.OrganizationSettingsRequestDto;
 import com.example.apigateway.dto.OrganizationSettingsResponseDto;
 import com.example.apigateway.facades.OrgSvcFacade;
 import com.example.apigateway.model.OrganizationSettings;
-import io.swagger.models.auth.In;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +17,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @Data
 @RequiredArgsConstructor
@@ -32,8 +36,10 @@ public class OrganizationSettingsController {
     private final OrganizationSettingsConverter converter;
 
     @RequestMapping(method = RequestMethod.POST, path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<OrganizationSettings> saveAccessToken(@RequestBody @Valid OrganizationSettingsRequestDto requestDto,
-                                                                @AuthenticationPrincipal OAuth2User principal) {
+    public ResponseEntity<OrganizationSettings> saveAccessToken(
+        @RequestBody @Valid final OrganizationSettingsRequestDto requestDto,
+        @AuthenticationPrincipal final OAuth2User principal
+    ) {
         Optional<Integer> organizationId = Optional.ofNullable(principal.getAttribute("organizationId"));
         if (organizationId.isPresent()) {
             OrganizationSettingsDto organizationSettingsDto = converter.requestToDto(requestDto);
@@ -44,7 +50,9 @@ public class OrganizationSettingsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    public ResponseEntity<OrganizationSettingsResponseDto> getAccessToken(@AuthenticationPrincipal OAuth2User principal) {
+    public ResponseEntity<OrganizationSettingsResponseDto> getAccessToken(
+        @AuthenticationPrincipal final OAuth2User principal
+    ) {
         Optional<Integer> organizationId = Optional.ofNullable(principal.getAttribute("organizationId"));
         if (organizationId.isPresent()) {
             OrganizationSettingsResponseDto dto = OrganizationSettingsResponseDto
