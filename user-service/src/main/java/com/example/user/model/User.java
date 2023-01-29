@@ -1,25 +1,27 @@
 package com.example.user.model;
 
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("users")
 @Builder
-@Value
+@Data
 public class User {
 
-  @Id
-  String id;
+    @Id
+    String id;
 
-  @Column("account_id")
-  String accountId;
+    @Column("account_id")
+    String accountId;
 
-  @Column("name")
-  String name;
+    @Column("name")
+    String name;
 
-  String provider;
+    String provider;
 
+    @Column("organization_id")
+    int organizationId;
 }

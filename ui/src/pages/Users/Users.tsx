@@ -1,6 +1,8 @@
 const Users = () => {
   return (
-    <div>users</div>
+      <>
+        <div>users</div>
+      </>
   );
 };
 

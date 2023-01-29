@@ -29,4 +29,10 @@ security:
 services:
   user:
     url: 'http://localhost:8081'
+  github:
+    url: 'http://localhost:9090'
+csrf:
+  xsrf_cookie_name: 'MH-XSRF'
+  xsrf_header_name: "MH-X-XSRF"
+  cookie_domain: "localhost"
 
