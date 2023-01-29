@@ -15,6 +15,7 @@ export interface SessionState {
 export const useSessionStore = create<SessionState>(set => ({
   user: null,
   loading: true,
+
   getSession: async () => {
     try {
       const user = await SessionService.getSession();

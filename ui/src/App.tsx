@@ -7,6 +7,7 @@ import LoadingScreen from './components/LoadingScreen';
 import ManagementHubLayout from './components/ManagementHubLayout';
 import Users from './pages/Users/Users';
 import Repositories from './pages/Repositories/Repositories';
+import Settings from "./pages/Settings/Settings";
 
 function App() {
   const user = useSessionStore(state => state.user);
@@ -29,6 +30,7 @@ function App() {
           <Route path={'/dashboard'} element={<Dashboard />} />
           <Route path={'/users'} element={<Users />} />
           <Route path={'/repositories'} element={<Repositories />} />
+          <Route path={'/organization-settings'} element={<Settings />} />
           <Route path={'*'} element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </ManagementHubLayout>

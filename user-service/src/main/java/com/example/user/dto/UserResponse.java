@@ -9,8 +9,7 @@ import lombok.extern.jackson.Jacksonized;
 @Value
 public class UserResponse {
 
-  Long id;
-  String login;
-  String accountId;
-
+    Long id;
+    String login;
+    String accountId;
 }

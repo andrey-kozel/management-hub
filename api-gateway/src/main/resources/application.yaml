@@ -31,4 +31,10 @@ services:
     url: 'http://localhost:8081'
   messages-service:
     url: 'http://localhost:8082'
+  github:
+    url: 'http://localhost:9090'
+csrf:
+  xsrf_cookie_name: 'MH-XSRF'
+  xsrf_header_name: "MH-X-XSRF"
+  cookie_domain: "localhost"
 

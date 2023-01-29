@@ -9,8 +9,7 @@ import lombok.extern.jackson.Jacksonized;
 @Value
 public class SaveOrGetUserRequest {
 
-  String accountId;
-  String name;
-  String provider;
-
+    String accountId;
+    String name;
+    String provider;
 }
