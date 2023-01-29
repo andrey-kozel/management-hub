@@ -7,10 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @Value
-public class UserResponse {
-
-    Long id;
-    String login;
-    String accountId;
-    int organizationId;
+public class OrganizationResponse {
+    int id;
+    String name;
 }
