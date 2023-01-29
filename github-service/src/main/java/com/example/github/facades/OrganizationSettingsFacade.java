@@ -1,8 +1,8 @@
-package com.example.facades;
+package com.example.github.facades;
 
-import com.example.converter.OrganizationSettingsConverter;
-import com.example.model.OrganizationSettings;
-import com.example.service.OrganizationSettingsService;
+import com.example.github.converter.OrganizationSettingsConverter;
+import com.example.github.model.OrganizationSettings;
+import com.example.github.service.OrganizationSettingsService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,7 +1,7 @@
-package com.example.service;
+package com.example.github.service;
 
-import com.example.model.OrganizationSettings;
-import com.example.repository.OrganizationSettingsRepository;
+import com.example.github.model.OrganizationSettings;
+import com.example.github.repository.OrganizationSettingsRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

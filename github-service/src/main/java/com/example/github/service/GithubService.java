@@ -12,7 +12,7 @@ import java.util.List;
 public class GithubService {
     private final GithubRepository githubRepository;
 
-   public List<Repo> findAllRepositoryByToken(String token) {
+   public List<Repo> findAllRepositoryByToken(final long token) {
         return githubRepository.findAllRepositoryByToken(token);
     }
 }

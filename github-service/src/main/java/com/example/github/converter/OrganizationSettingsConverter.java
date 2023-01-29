@@ -1,7 +1,7 @@
-package com.example.converter;
+package com.example.github.converter;
 
-import com.example.dto.OrganizationSettingsRequestDto;
-import com.example.model.OrganizationSettings;
+import com.example.github.dto.OrganizationSettingsRequestDto;
+import com.example.github.model.OrganizationSettings;
 import org.mapstruct.Mapper;
 
 @Mapper
