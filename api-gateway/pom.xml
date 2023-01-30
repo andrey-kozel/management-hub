@@ -17,7 +17,6 @@
 		<spring-boot-starter-web.version>2.7.5</spring-boot-starter-web.version>
 		<spring.cloud.starter.openfeign>3.1.4</spring.cloud.starter.openfeign>
 		<springfox.version>3.0.0</springfox.version>
-		<lombok.version>1.18.24</lombok.version>
 		<jackson-databind.version>2.14.1</jackson-databind.version>
 		<hibernate.validator>8.0.0.Final</hibernate.validator>
 	</properties>
@@ -97,6 +96,10 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>

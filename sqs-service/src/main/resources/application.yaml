@@ -1,0 +1,10 @@
+aws:
+  endpoints:
+    sqs: "http://localhost:4566/"
+  region: "us-east-1"
+  credentials:
+    access-key: "key"
+    secret-key: "secret"
+
+server:
+  port: 8082

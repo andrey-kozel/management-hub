@@ -29,6 +29,8 @@ security:
 services:
   user:
     url: 'http://localhost:8081'
+  messages-service:
+    url: 'http://localhost:8082'
   github:
     url: 'http://localhost:9090'
 csrf:
