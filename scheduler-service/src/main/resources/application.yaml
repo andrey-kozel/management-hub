@@ -1,0 +1,8 @@
+server:
+  port: 8084
+
+services:
+  messages-service:
+    url: 'http://localhost:8082'
+  github:
+    url: 'http://localhost:9090'
