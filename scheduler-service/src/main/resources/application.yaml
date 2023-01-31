@@ -6,3 +6,5 @@ services:
     url: 'http://localhost:8082'
   github:
     url: 'http://localhost:9090'
+  user-service:
+    url: 'http://localhost:8081'

@@ -1,13 +1,13 @@
-package com.example.scheduler.model;
+package com.example.scheduler.dto;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 import lombok.extern.jackson.Jacksonized;
 
-@Builder
-@Data
 @Jacksonized
-public class QueueMessage {
+@Builder
+@Value
+public class QueueMessageDto {
     Long organizationId;
     String accessToken;
 }
