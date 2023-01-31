@@ -1,0 +1,8 @@
+server:
+  port: 8085
+
+services:
+  github-api:
+    url: 'https://api.github.com/'
+  queue-service:
+    url: 'http://localhost:8082'

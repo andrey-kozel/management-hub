@@ -1,4 +1,4 @@
-package com.example.scheduler.dto;
+package com.example.github_worker.dto;
 
 import lombok.Builder;
 import lombok.Value;
@@ -7,7 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @Value
-public class OrganizationResponse {
-    Long id;
-    String name;
+public class SyncMessageDto {
+    Long organizationId;
+    String accessToken;
 }
