@@ -1,4 +1,4 @@
-package com.example.scheduler;
+package com.example.scheduler.scheduler;
 
 import com.example.scheduler.client.OrganizationClient;
 import com.example.scheduler.client.OrganizationSettingClient;
@@ -8,7 +8,6 @@ import com.example.scheduler.dto.QueueMessageDto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
