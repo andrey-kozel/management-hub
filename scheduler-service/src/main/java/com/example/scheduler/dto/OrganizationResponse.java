@@ -1,4 +1,4 @@
-package com.example.apigateway.dto;
+package com.example.scheduler.dto;
 
 import lombok.Builder;
 import lombok.Value;

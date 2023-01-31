@@ -1,5 +1,6 @@
 package com.example.user.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.user.model.Organization;
@@ -16,7 +17,7 @@ public class OrganizationService {
         Optional<Organization> organization = organizationRepository.getByName(organizationName);
 
         if (organization.isEmpty()) {
-            int organizationId = organizationRepository.save(organizationName);
+            Long organizationId = organizationRepository.save(organizationName);
             return Organization
                     .builder()
                     .id(organizationId)
@@ -24,5 +25,9 @@ public class OrganizationService {
                     .build();
         }
         return organization.get();
+    }
+
+    public List<Organization> getAll() {
+        return organizationRepository.getAll();
     }
 }

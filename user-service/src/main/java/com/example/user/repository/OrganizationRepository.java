@@ -1,5 +1,6 @@
 package com.example.user.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.user.model.Organization;
@@ -13,5 +14,8 @@ public interface OrganizationRepository extends Repository<Organization, Long> {
     Optional<Organization> getByName(@Param("organizationName") String organizationName);
 
     @Query("INSERT INTO organizations (name) VALUES (:organizationName) RETURNING id")
-    int save(@Param("organizationName") String organizationName);
+    Long save(@Param("organizationName") String organizationName);
+
+    @Query("SELECT * FROM organizations")
+    List<Organization> getAll();
 }
