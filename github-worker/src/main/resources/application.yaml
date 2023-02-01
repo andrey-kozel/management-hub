@@ -6,3 +6,5 @@ services:
     url: 'https://api.github.com/'
   queue-service:
     url: 'http://localhost:8082'
+  github-service:
+    url: 'http://localhost:9090'

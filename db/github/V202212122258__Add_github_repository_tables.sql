@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS github_repository
 (
-    id                         BIGINT    NOT NULL,
+    id                         BIGSERIAL NOT NULL UNIQUE,
+    github_id                  BIGINT    NOT NULL,
     node_id                    TEXT,
     name                       TEXT,
     full_name                  TEXT,
@@ -25,7 +26,7 @@ CREATE TABLE IF NOT EXISTS github_repository
 
     is_synchronization_enabled BOOLEAN   NOT NULL DEFAULT FALSE,
     synchronized_at            TIMESTAMP NOT NULL,
-    organization_id            UUID      NOT NULL,
+    organization_id            BIGINT      NOT NULL,
 
     PRIMARY KEY (id)
 );
