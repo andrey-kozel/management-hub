@@ -10,17 +10,3 @@ services:
       - "35432:5432"
     volumes:
       - "./db/init.sql:/docker-entrypoint-initdb.d/1-init.sql"
-
-  localstack:
-    container_name: "sqs-service-localstack"
-    image: localstack/localstack:latest
-    ports:
-      - "4566:4566"
-      - "4572:4572"
-    environment:
-      - SERVICES:sqs
-      - DEBUG=1
-      - DATA_DIR=/tmp/localstack/data
-      - DOCKER_HOST=unix:///var/run/docker.sock
-    volumes:
-      - ./scripts/localstack:/docker-entrypoint-initaws.d
