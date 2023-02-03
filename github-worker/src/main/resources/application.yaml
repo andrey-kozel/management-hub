@@ -4,7 +4,17 @@ server:
 services:
   github-api:
     url: 'https://api.github.com/'
-  queue-service:
-    url: 'http://localhost:8082'
   github-service:
     url: 'http://localhost:9090'
+
+aws:
+  name:
+    sqs:
+      sync-repositories: "repositories-sync"
+  endpoints:
+    sqs:
+      sync-repositories: "http://localhost:4566/"
+  region: "us-east-1"
+  credentials:
+    access-key: "key"
+    secret-key: "secret"

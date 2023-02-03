@@ -50,5 +50,10 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>${spring.cloud.starter.openfeign}</version>
         </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sqs</artifactId>
+            <version>1.12.362</version>
+        </dependency>
     </dependencies>
 </project>

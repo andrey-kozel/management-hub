@@ -16,6 +16,7 @@ public interface OrganizationRepository extends Repository<Organization, Long> {
     @Query("INSERT INTO organizations (name) VALUES (:organizationName) RETURNING id")
     Long save(@Param("organizationName") String organizationName);
 
-    @Query("SELECT * FROM organizations")
-    List<Organization> getAll();
+    @Query(value = "SELECT * FROM organizations WHERE organizations.id > :idOffset ORDER BY organizations.id " +
+            "LIMIT :pageSize")
+    List<Organization> getFiltered(@Param("idOffset") Long idOffset, @Param("pageSize") int pageSize);
 }

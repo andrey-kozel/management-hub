@@ -5,11 +5,13 @@ import com.example.user.dto.CreateOrganizationDto;
 import com.example.user.dto.OrganizationResponse;
 import com.example.user.facade.OrganizationFacade;
 import com.example.user.model.Organization;
-import java.util.ArrayList;
+
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/organizations")
 @RequiredArgsConstructor
 public class OrganizationController {
+    private static final int PAGE_SIZE = 20;
+
     private final OrganizationConverter organizationConverter;
     private final OrganizationFacade organizationFacade;
 
@@ -28,13 +32,9 @@ public class OrganizationController {
     }
 
     @GetMapping
-    public List<OrganizationResponse> getAll() {
-        List<Organization> organizations = organizationFacade.getAll();
-        List<OrganizationResponse> responsesList = new ArrayList<>();
+    public List<OrganizationResponse> getFiltered(@RequestParam final Long idOffset) {
+        List<Organization> organizations = organizationFacade.getFiltered(idOffset, PAGE_SIZE);
 
-        organizations.forEach(organization -> {
-            responsesList.add(organizationConverter.toDto(organization));
-        });
-        return responsesList;
+        return organizations.stream().map(organizationConverter::toDto).collect(Collectors.toList());
     }
 }

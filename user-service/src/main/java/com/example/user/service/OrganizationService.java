@@ -27,7 +27,7 @@ public class OrganizationService {
         return organization.get();
     }
 
-    public List<Organization> getAll() {
-        return organizationRepository.getAll();
+    public List<Organization> getFiltered(final Long idOffset, final int pageSize) {
+        return organizationRepository.getFiltered(idOffset, pageSize);
     }
 }

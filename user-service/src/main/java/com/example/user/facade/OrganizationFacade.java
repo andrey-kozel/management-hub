@@ -15,7 +15,7 @@ public class OrganizationFacade {
         return organizationService.saveOrganization(organizationName);
     }
 
-    public List<Organization> getAll() {
-        return organizationService.getAll();
+    public List<Organization> getFiltered(final Long idOffset, final int pageSize) {
+        return organizationService.getFiltered(idOffset, pageSize);
     }
 }

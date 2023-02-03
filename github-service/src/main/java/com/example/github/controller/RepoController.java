@@ -1,6 +1,5 @@
 package com.example.github.controller;
 
-import com.example.github.converter.GithubRepositoryConverter;
 import com.example.github.dto.SaveRepositoryDto;
 import com.example.github.model.GitRepository;
 import java.sql.Timestamp;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 public class RepoController {
     private final GithubService githubService;
     private final RepoConverter repoConverter;
-    private final GithubRepositoryConverter githubRepositoryConverter;
 
     @GetMapping("/organizations/{organizationId}/repositories")
     protected List<RepoDto> getRepositories(@PathVariable long organizationId) {
@@ -35,10 +33,8 @@ public class RepoController {
         List<GitRepository> repositoryList = new ArrayList<>();
 
         repositoryDtoList.forEach(repositoryDto -> {
-            GitRepository repository = githubRepositoryConverter.fromDto(repositoryDto);
-            repository.setOrganizationId(organizationId);
-            repository.setIsSynchronizationEnabled(true);
-            repository.setSynchronizedAt(Timestamp.from(Instant.now()));
+            GitRepository repository = repoConverter.fromDto(repositoryDto, organizationId,
+                    true, Timestamp.from(Instant.now()));
 
             repositoryList.add(repository);
         });

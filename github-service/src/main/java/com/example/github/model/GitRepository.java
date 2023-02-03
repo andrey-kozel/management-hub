@@ -1,9 +1,13 @@
 package com.example.github.model;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
