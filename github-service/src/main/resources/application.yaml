@@ -6,5 +6,10 @@ spring:
     username: postgres
     password: postgres
     url: jdbc:postgresql://localhost:35432/github
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 36379
 token:
   return-length: 5
