@@ -11,7 +11,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Value
 public class Organization {
     @Id
-    int id;
+    Long id;
 
     @Column("name")
     String name;

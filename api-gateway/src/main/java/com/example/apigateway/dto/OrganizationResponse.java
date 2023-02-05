@@ -8,6 +8,6 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Value
 public class OrganizationResponse {
-    int id;
+    Long id;
     String name;
 }
