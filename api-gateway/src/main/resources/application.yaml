@@ -12,6 +12,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  redis:
+    host: localhost
+    port: 36379
 
 feign:
   client:
@@ -31,8 +34,12 @@ services:
     url: 'http://localhost:8081'
   github:
     url: 'http://localhost:9090'
+
 csrf:
   xsrf_cookie_name: 'MH-XSRF'
   xsrf_header_name: "MH-X-XSRF"
   cookie_domain: "localhost"
+
+rate-limiter:
+  max-requests: 10000
 
