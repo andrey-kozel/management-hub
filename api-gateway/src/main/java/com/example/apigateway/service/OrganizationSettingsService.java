@@ -20,6 +20,7 @@ public class OrganizationSettingsService {
     }
 
     public String getAccessToken(long organizationId) {
+        log.info("Getting access token for organization. OrganizationId=[{}]", organizationId);
         return client.getAccessToken(organizationId);
     }
 }

@@ -23,8 +23,8 @@ public class RateLimiterFilter extends GenericFilterBean {
     private final Long maxRequests;
 
     public RateLimiterFilter(
-        final StatefulRedisConnection<String, Long> connector,
-        @Value("${rate-limiter.max-requests}") final Long maxRequests
+            final StatefulRedisConnection<String, Long> connector,
+            @Value("${rate-limiter.max-requests}") final Long maxRequests
     ) {
         this.connector = connector;
         this.maxRequests = maxRequests;

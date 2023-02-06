@@ -22,6 +22,8 @@ feign:
       user:
         connect-timeout: 50000
         read-timeout: 30000
+      requestInterceptors:
+        - com.example.apigateway.client.interceptor.CorrelationInterceptor
 
 security:
   secret: "SECRET"
