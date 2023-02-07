@@ -12,6 +12,9 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  redis:
+    host: localhost
+    port: 36379
 
 feign:
   client:
@@ -19,6 +22,18 @@ feign:
       user:
         connect-timeout: 50000
         read-timeout: 30000
+        request-interceptors:
+          - com.example.apigateway.client.interceptor.CorrelationIdInterceptor
+      organization:
+        connect-timeout: 50000
+        read-timeout: 30000
+        request-interceptors:
+          - com.example.apigateway.client.interceptor.CorrelationIdInterceptor
+      github-service:
+        connect-timeout: 50000
+        read-timeout: 30000
+        request-interceptors:
+          - com.example.apigateway.client.interceptor.CorrelationIdInterceptor
 
 security:
   secret: "SECRET"
@@ -31,8 +46,12 @@ services:
     url: 'http://localhost:8081'
   github:
     url: 'http://localhost:9090'
+
 csrf:
   xsrf_cookie_name: 'MH-XSRF'
   xsrf_header_name: "MH-X-XSRF"
   cookie_domain: "localhost"
+
+rate-limiter:
+  max-requests: 10000
 

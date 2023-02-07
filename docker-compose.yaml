@@ -10,3 +10,14 @@ services:
       - "35432:5432"
     volumes:
       - "./db/init.sql:/docker-entrypoint-initdb.d/1-init.sql"
+  redis:
+    image: redis:7.0
+    container_name: management-hub-redis
+    restart: always
+    ports:
+      - "36379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

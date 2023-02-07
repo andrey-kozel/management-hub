@@ -10,6 +10,7 @@ import lombok.extern.jackson.Jacksonized;
 public class UserResponse {
 
     Long id;
+    Long organizationId;
     String login;
     String accountId;
 }
