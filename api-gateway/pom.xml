@@ -20,6 +20,7 @@
 		<lombok.version>1.18.24</lombok.version>
 		<jackson-databind.version>2.14.1</jackson-databind.version>
 		<hibernate.validator>8.0.0.Final</hibernate.validator>
+		<commons-lang3.version>3.12.0</commons-lang3.version>
 	</properties>
 
 	<dependencies>
@@ -84,6 +85,13 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 			<version>${jackson-databind.version}</version>
+		</dependency>
+
+		<!-- UTILS -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
 		</dependency>
 
 		<!-- BOILERPLATE REDUCTION -->

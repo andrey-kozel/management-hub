@@ -22,8 +22,18 @@ feign:
       user:
         connect-timeout: 50000
         read-timeout: 30000
-      requestInterceptors:
-        - com.example.apigateway.client.interceptor.CorrelationInterceptor
+        request-interceptors:
+          - com.example.apigateway.client.interceptor.CorrelationIdInterceptor
+      organization:
+        connect-timeout: 50000
+        read-timeout: 30000
+        request-interceptors:
+          - com.example.apigateway.client.interceptor.CorrelationIdInterceptor
+      github-service:
+        connect-timeout: 50000
+        read-timeout: 30000
+        request-interceptors:
+          - com.example.apigateway.client.interceptor.CorrelationIdInterceptor
 
 security:
   secret: "SECRET"

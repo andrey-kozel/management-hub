@@ -19,6 +19,7 @@ public class OrgSvcFacade {
     }
 
     public String getAccessToken(long organizationId) {
+        log.info("Token had been requested. OrganizationId=[{}]", organizationId);
         return service.getAccessToken(organizationId);
     }
 }
